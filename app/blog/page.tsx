@@ -21,7 +21,7 @@ export default async function BlogPage() {
 
         <header className="space-y-6 max-w-3xl">
           <h1 className="text-4xl font-bold tracking-tight text-white">
-            شبنامه‌ها
+            شب‌نامه‌ها
           </h1>
           <p className="text-zinc-300 leading-relaxed">
             هر کدام یک صدا.

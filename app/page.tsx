@@ -1,4 +1,6 @@
 import Link from 'next/link'
+import Image from 'next/image'
+import Logo from "@/public/logo/logo.jpg"
 
 export default function HomePage() {
   return (
@@ -15,9 +17,12 @@ export default function HomePage() {
       <section className="relative mx-auto max-w-3xl px-6 py-32 space-y-28">
 
         <header className="space-y-10">
-          <h1 className="text-6xl font-bold tracking-tight text-white">
-            شبنامه
-          </h1>
+          <div className="flex gap-5">
+            <h1 className="text-6xl font-bold tracking-tight text-white mt-4">
+              شب‌نامه
+            </h1>
+            <Image src={Logo} alt="شب‌نامه" width={70} height={70} className="flex items-center justify-center" />
+          </div>
 
           <p className="text-xl leading-relaxed text-zinc-300">
             در سال‌های منتهی به ۱۳۵۷، شب‌ها نامه‌هایی بی‌امضا،
@@ -35,7 +40,7 @@ export default function HomePage() {
           </p>
 
           <p>
-            آن نوشته‌ها را <span className="text-white">شبنامه</span> می‌نامیدند.
+            آن نوشته‌ها را <span className="text-white">شب‌نامه</span> می‌نامیدند.
           </p>
         </section>
 
@@ -47,7 +52,7 @@ export default function HomePage() {
 
         <section className="space-y-6 text-zinc-300 leading-relaxed">
           <p>
-            امروز شبنامه دیگر کاغذی نیست،
+            امروز شب‌نامه دیگر کاغذی نیست،
             اما اعتراض هنوز زنده است.
           </p>
 
@@ -62,13 +67,13 @@ export default function HomePage() {
           <div className="absolute right-0 top-0 bottom-0 w-0.5 bg-linear-to-b from-cyan-400 via-indigo-400 to-transparent" />
 
           <p>
-            شبنامه نه حزب است،
+            شب‌نامه نه حزب است،
             نه رسانه،
             نه سخنگو.
           </p>
 
           <p>
-            شبنامه مجموعه‌ای‌ست از صداها؛
+            شب‌نامه مجموعه‌ای‌ست از صداها؛
             روایت ها,
             مستقل،
             بی‌نام،
@@ -81,7 +86,7 @@ export default function HomePage() {
             href="/blog"
             className="group inline-flex items-center gap-4 px-10 py-3 rounded-full border border-white/20 text-sm text-white hover:border-indigo-400 transition"
           >
-            <span>خواندن شبنامه‌ها</span>
+            <span>خواندن شب‌نامه‌ها</span>
             <span className="text-indigo-400 group-hover:-translate-x-1 transition">
               ←
             </span>
@@ -91,7 +96,7 @@ export default function HomePage() {
             href="/write"
             className="inline-flex items-center gap-3 text-sm text-zinc-400 hover:text-white transition"
           >
-            <span>نوشتن شبنامه</span>
+            <span>نوشتن شب‌نامه</span>
             <span className="opacity-60">←</span>
           </Link>
         </footer>

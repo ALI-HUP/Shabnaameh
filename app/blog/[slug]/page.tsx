@@ -53,7 +53,7 @@ export default async function PostPage({ params }: PageProps) {
         </section>
 
         <footer className="pt-12 flex items-center justify-end text-xs text-zinc-500">
-          پایان شبنامه
+          پایان شب‌نامه
         </footer>
 
       </article>

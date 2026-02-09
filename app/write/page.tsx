@@ -15,7 +15,7 @@ export default function WritePage() {
 
         <header className="space-y-6">
           <h1 className="text-3xl font-bold tracking-tight text-white">
-            نوشتن شبنامه
+            نوشتن شب‌نامه
           </h1>
 
           <p className="text-zinc-300 leading-relaxed">
@@ -40,7 +40,7 @@ export default function WritePage() {
             <input
               name="title"
               required
-              placeholder="عنوان شبنامه…"
+              placeholder="عنوان شب‌نامه…"
               className="w-full bg-transparent border-none outline-none text-2xl font-medium text-white placeholder:text-zinc-600 focus:ring-0"
             />
           </section>
@@ -61,7 +61,7 @@ export default function WritePage() {
 
           <footer className="pt-12 flex items-center justify-between">
             <span className="text-xs text-zinc-500">
-              پس از انتشار، شبنامه فوراً وارد آرشیو می‌شود
+              پس از انتشار، شب‌نامه فوراً وارد آرشیو می‌شود
             </span>
 
             <button
