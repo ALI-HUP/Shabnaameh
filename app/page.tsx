@@ -31,7 +31,7 @@ export default function HomePage() {
           <div className="absolute right-0 top-0 bottom-0 w-0.5 bg-linear-to-b from-indigo-400 via-fuchsia-400 to-transparent" />
 
           <p>
-            نوشته‌هایی که جرأت گفتنشان در روز نبود.
+            نوشته‌هایی که امکان گفتنشان در روز نبود.
           </p>
 
           <p>
