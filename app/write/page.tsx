@@ -8,7 +8,7 @@ export default function WritePage() {
   return (
     <main
       dir="rtl"
-      className="relative py-20 md:py-24 p-5 sm:p-6 md:p-10 min-h-screen bg-black text-stone-100 overflow-hidden"
+      className="relative py-20 md:py-24 p-3 sm:p-5 md:p-7 min-h-screen bg-black text-stone-100 overflow-hidden"
       style={{
         backgroundImage: "url('/background/photo_2026-02-09_22-46-50.jpg')",
         backgroundSize: "cover",

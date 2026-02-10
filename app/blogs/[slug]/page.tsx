@@ -22,7 +22,7 @@ export default async function PostPage({ params }: PageProps) {
   return (
     <main
       dir="rtl"
-      className="relative py-20 md:py-24 p-5 sm:p-6 md:p-10 min-h-screen bg-black text-stone-100 overflow-hidden"
+      className="relative py-20 md:py-24 p-3 sm:p-5 md:p-7 min-h-screen bg-black text-stone-100 overflow-hidden"
       style={{
         backgroundImage: "url('/background/photo_2026-02-09_22-46-50.jpg')",
         backgroundSize: 'cover',
@@ -50,25 +50,13 @@ export default async function PostPage({ params }: PageProps) {
 
         <div className="border-t border-gray-700/50" />
 
-        <section className="rounded-xl border border-gray-700/50 bg-gray-800/55 backdrop-blur-sm px-6 sm:px-8 py-10 sm:py-12">
-          <div
-            className="
-              prose max-w-none
-              prose-p:leading-loose
-              prose-p:text-stone-200
-              prose-headings:text-stone-100
-              prose-strong:text-stone-100
-              prose-a:text-rose-500
-              prose-a:no-underline hover:prose-a:underline
-            "
-          >
+          <div>
             <PortableText value={post.body} />
           </div>
 
           <footer className="pt-14 text-sm text-stone-400 text-left">
             پایان شب‌نامه
           </footer>
-        </section>
 
       </article>
     </main>
