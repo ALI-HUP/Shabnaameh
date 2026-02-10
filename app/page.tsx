@@ -1,107 +1,93 @@
-import Link from 'next/link'
-import Image from 'next/image'
-import Logo from "@/public/logo/logo.jpg"
+import Link from "next/link";
+import Image from "next/image";
+import Logo from "@/public/logo/logo.jpg";
 
 export default function HomePage() {
   return (
     <main
       dir="rtl"
-      className="relative min-h-screen bg-zinc-950 text-zinc-100 overflow-hidden"
+      className="relative p-5 sm:p-6 md:p-10 min-h-screen bg-black text-stone-100"
+      style={{
+        backgroundImage: "url('/background/photo_2026-02-09_22-46-50.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-32 right-1/3 w-130 h-130 rounded-full bg-indigo-500/25 blur-[140px]" />
-        <div className="absolute top-1/2 -left-32 w-105 h-105 rounded-full bg-fuchsia-500/20 blur-[120px]" />
-        <div className="absolute bottom-0 right-0 w-90 h-90 rounded-full bg-cyan-400/15 blur-[120px]" />
-      </div>
+      <div className="pointer-events-none absolute inset-0 bg-red-700/45 mix-blend-multiply" />
 
-      <section className="relative mx-auto max-w-3xl px-6 py-32 space-y-28">
+      <div className="pointer-events-none absolute inset-0 bg-black/30" />
 
-        <header className="space-y-10">
-          <div className="flex gap-5">
-            <h1 className="text-6xl font-bold tracking-tight text-white mt-4">
+      <section className="relative mx-auto max-w-4xl px-5 sm:px-7 md:px-7 py-16 sm:py-24 md:py-32 space-y-20 sm:space-y-28 bg-black/60 backdrop-blur-sm rounded-2xl">
+        <header className="space-y-8 sm:space-y-12 text-center md:text-right">
+          <div className="flex items-center justify-start gap-4 sm:gap-6">
+            <div className="relative">
+              <Image
+                src={Logo}
+                alt="شب‌نامه"
+                width={64}
+                height={64}
+                className="rounded-lg sm:w-20 sm:h-20"
+              />
+            </div>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white">
               شب‌نامه
             </h1>
-            <Image src={Logo} alt="شب‌نامه" width={70} height={70} className="flex items-center justify-center" />
           </div>
 
-          <p className="text-xl leading-relaxed text-zinc-300">
-            در سال‌های منتهی به ۱۳۵۷، شب‌ها نامه‌هایی بی‌امضا،
-            بی‌صدا و مخفیانه به خانه‌ها می‌رسید.
+          <p className="text-xl sm:text-2xl md:text-3xl leading-relaxed max-w-3xl mx-auto md:mx-0 text-stone-200">
+            شب‌نامه جایی‌ست برای نوشتن؛  
+            برای روایت‌هایی که جایی در رسانه ندارند،  
+            اما باید بمانند.
           </p>
         </header>
 
-        <div className="h-px w-full bg-linear-to-l from-transparent via-indigo-400/80 to-transparent" />
+        <div className="flex items-center gap-4 sm:gap-6 w-full max-w-xl mx-auto md:max-w-none md:mx-0">
+          <span className="text-base sm:text-lg font-bold text-red-700">۱۳۵۷</span>
+          <div className="flex-1 border border-red-700" />
+          <span className="text-base sm:text-lg font-bold text-red-700">۱۴۰۴</span>
+        </div>
 
-        <section className="relative space-y-6 text-zinc-300 leading-relaxed pr-6">
-          <div className="absolute right-0 top-0 bottom-0 w-0.5 bg-linear-to-b from-indigo-400 via-fuchsia-400 to-transparent" />
-
-          <p>
-            نوشته‌هایی که امکان گفتنشان در روز نبود.
-          </p>
-
-          <p>
-            آن نوشته‌ها را <span className="text-white">شب‌نامه</span> می‌نامیدند.
-          </p>
+        <section className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-10 md:gap-14 text-base sm:text-lg leading-loose">
+          <div className="space-y-5 sm:space-y-6 bg-gray-950/70 backdrop-blur-sm p-5 sm:p-7 md:p-8 rounded-lg border-r-4 border-red-700 shadow-md">
+            <p>در سال‌های منتهی به ۱۳۵۷، شب‌ها نامه‌هایی بی‌امضا، بی‌صدا و مخفیانه به خانه‌ها می‌رسید.</p>
+          </div>
+          <div className="space-y-5 sm:space-y-6 bg-gray-950/70 backdrop-blur-sm p-5 sm:p-7 md:p-8 rounded-lg border-r-4 border-red-700 shadow-md">
+            <p>نوشته‌هایی که امکان گفتنشان در روز نبود. آن نوشته‌ها را شب‌نامه می‌نامیدند.</p>
+          </div>
+          <div className="space-y-5 sm:space-y-6 bg-gray-950/70 backdrop-blur-sm p-5 sm:p-7 md:p-8 rounded-lg border-r-4 border-red-700 shadow-md">
+            <p>آن نوشته‌ها شب‌نامه بودند؛ نه برای فریاد، برای ماندن.</p>
+          </div>
+          <div className="space-y-5 sm:space-y-6 bg-gray-950/70 backdrop-blur-sm p-5 sm:p-7 md:p-8 rounded-lg border-r-4 border-red-700 shadow-md">
+            <p>امروز شب‌نامه دیگر کاغذی نیست، اما اعتراض هنوز یک عمل است.</p>
+          </div>
         </section>
 
-        <section className="flex items-center gap-6">
-          <span className="text-sm text-zinc-400">۱۳۵۷</span>
-          <div className="flex-1 h-0.5 bg-linear-to-l from-fuchsia-400 via-indigo-400 to-cyan-400" />
-          <span className="text-sm text-zinc-400">۱۴۰۴</span>
+        <section className="relative text-lg sm:text-xl bg-gray-950/75 backdrop-blur-md border-r-8 border-red-700 px-6 sm:px-8 py-8 sm:py-10 leading-relaxed rounded-lg shadow-2xl">
+          شب‌نامه نه حزب است،  
+          نه رسانه،  
+          نه تریبون؛
+          <br />
+          شب‌نامه مجموعه‌ای‌ست از صداها؛ روایت‌ها، مستقل، بی‌نام، و آزاد.
+          <br />
+          <span className="font-bold text-red-700">(در پی اعتراض)</span>
         </section>
 
-        <section className="space-y-6 text-zinc-300 leading-relaxed">
-          <p>
-            امروز شب‌نامه دیگر کاغذی نیست،
-            اما اعتراض هنوز زنده است.
-          </p>
-
-          <p>
-            اینجا جایی‌ست برای نوشتن،
-            برای ثبت،
-            برای گفتن آنچه نباید فراموش شود.
-          </p>
-        </section>
-
-        <section className="relative space-y-6 text-zinc-300 leading-relaxed pr-6">
-          <div className="absolute right-0 top-0 bottom-0 w-0.5 bg-linear-to-b from-cyan-400 via-indigo-400 to-transparent" />
-
-          <p>
-            شب‌نامه نه حزب است،
-            نه رسانه،
-            نه سخنگو.
-          </p>
-
-          <p>
-            شب‌نامه مجموعه‌ای‌ست از صداها؛
-            روایت ها,
-            مستقل،
-            بی‌نام،
-            و آزاد. (در پی اعتراض)
-          </p>
-        </section>
-
-        <footer className="pt-20 flex flex-col sm:flex-row items-start sm:items-center gap-6">
+        <footer className="pt-8 sm:pt-10 flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center md:justify-end">
           <Link
-            href="/blog"
-            className="group inline-flex items-center gap-4 px-10 py-3 rounded-full border border-white/20 text-sm text-white hover:border-indigo-400 transition"
+            href="/blogs"
+            className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-red-700 text-white font-medium rounded-lg hover:bg-red-800 transition-all text-base sm:text-base"
           >
-            <span>خواندن شب‌نامه‌ها</span>
-            <span className="text-indigo-400 group-hover:-translate-x-1 transition">
-              ←
-            </span>
+            خواندن شب‌نامه
           </Link>
 
           <Link
             href="/write"
-            className="inline-flex items-center gap-3 text-sm text-zinc-400 hover:text-white transition"
+            className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-transparent border-2 border-red-700 text-stone-200 font-medium rounded-lg hover:bg-red-700/30 transition-all text-base sm:text-base"
           >
-            <span>نوشتن شب‌نامه</span>
-            <span className="opacity-60">←</span>
+            نوشتن شب‌نامه
           </Link>
         </footer>
-
       </section>
     </main>
-  )
+  );
 }

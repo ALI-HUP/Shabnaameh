@@ -1,82 +1,88 @@
-import { createPost } from '../actions/createPost'
+'use client'
+
+import Header from '@/components/Header'
+import { createPost } from "../actions/createPost";
+
 
 export default function WritePage() {
   return (
     <main
       dir="rtl"
-      className="relative min-h-screen bg-zinc-950 text-zinc-100 overflow-hidden"
+      className="relative py-20 md:py-24 p-5 sm:p-6 md:p-10 min-h-screen bg-black text-stone-100 overflow-hidden"
+      style={{
+        backgroundImage: "url('/background/photo_2026-02-09_22-46-50.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute top-20 right-1/3 w-125 h-125 rounded-full bg-indigo-500/20 blur-[140px]" />
-        <div className="absolute bottom-0 left-1/4 w-100 h-100 rounded-full bg-fuchsia-500/15 blur-[120px]" />
-      </div>
+    <Header />
 
-      <section className="relative mx-auto max-w-3xl px-6 py-32 space-y-20">
+      <div className="pointer-events-none absolute inset-0 bg-black/65" />
+      <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-black/10 via-transparent to-black/30" />
 
-        <header className="space-y-6">
-          <h1 className="text-3xl font-bold tracking-tight text-white">
+      <section className="relative mx-auto max-w-4xl px-5 sm:px-6 md:px-7 py-12 sm:py-16 md:py-20 space-y-12 sm:space-y-16 bg-gray-900/55 backdrop-blur-md rounded-xl border border-gray-800/40">
+        
+        <header className="space-y-6 text-center md:text-right">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-stone-50">
             نوشتن شب‌نامه
           </h1>
-
-          <p className="text-zinc-300 leading-relaxed">
-            این نوشته قرار نیست فریاد باشد.  
-            قرار است بماند.
-          </p>
         </header>
 
-        <div className="h-0.5 w-full bg-linear-to-l from-transparent via-indigo-400/80 to-transparent" />
+        <div className="border-t border-gray-700/50 w-full" />
 
-        <form
-          action={createPost}
-          className="relative space-y-16 pr-6"
-        >
-          <div className="absolute right-0 top-0 bottom-0 w-px bg-white/10" />
-
-          <section className="space-y-4">
-            <label className="text-sm text-zinc-400">
+        <form action={createPost} className="space-y-8 sm:space-y-10">
+          <section className="space-y-3">
+            <label 
+              htmlFor="title" 
+              className="block text-lg sm:text-xl font-medium text-stone-200"
+            >
               عنوان
             </label>
-
             <input
+              id="title"
               name="title"
+              type="text"
               required
-              placeholder="عنوان شب‌نامه…"
-              className="w-full bg-transparent border-none outline-none text-2xl font-medium text-white placeholder:text-zinc-600 focus:ring-0"
+              dir="rtl"
+              placeholder="عنوان شب‌نامه را اینجا بنویس…"
+              className="w-full px-4 sm:px-5 py-3.5 bg-gray-800/65 border border-gray-700 rounded-lg text-base sm:text-lg text-stone-50 placeholder:text-stone-500 focus:outline-none focus:border-rose-600 focus:ring-2 focus:ring-rose-600/20 transition-all"
             />
           </section>
 
-          <section className="space-y-4">
-            <label className="text-sm text-zinc-400">
-              متن
+          <section className="space-y-3">
+            <label 
+              htmlFor="body" 
+              className="block text-lg sm:text-xl font-medium text-stone-200"
+            >
+              متن شب‌نامه
             </label>
-
             <textarea
+              id="body"
               name="body"
               required
-              rows={14}
-              placeholder="شروع کن به نوشتن…"
-              className="w-full resize-none bg-transparent border-none outline-none text-zinc-200 leading-loose placeholder:text-zinc-600 focus:ring-0"
+              rows={15}
+              dir="rtl"
+              placeholder="آزادی که درباره آزادی بنویسی..."
+              className="w-full px-4 sm:px-5 py-4 bg-gray-800/65 border border-gray-700 rounded-lg text-base sm:text-lg leading-relaxed text-stone-50 placeholder:text-stone-500 resize-y min-h-80 sm:min-h-120 focus:outline-none focus:border-rose-600 focus:ring-2 focus:ring-rose-600/20 transition-all"
             />
           </section>
 
-          <footer className="pt-12 flex items-center justify-between">
-            <span className="text-xs text-zinc-500">
-              پس از انتشار، شب‌نامه فوراً وارد آرشیو می‌شود
+          <footer className="pt-4 sm:pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
+            <span className="text-sm text-stone-400 leading-relaxed max-w-md">
+              پس از انتشار، نوشته مستقیماً وارد آرشیو شب‌نامه
+              <br />
+              می‌شود و قابل ویرایش یا حذف نخواهد بود.
             </span>
 
             <button
               type="submit"
-              className="relative inline-flex items-center gap-3 text-sm text-white px-6 py-2 border border-white/20 rounded-full hover:border-indigo-400 transition"
+              className="inline-flex items-center justify-center px-6 sm:px-8 py-3 bg-rose-700 hover:bg-rose-600 text-white font-medium rounded-lg transition-all shadow-sm hover:shadow-md text-base"
             >
-              <span>انتشار</span>
-              <span className="text-indigo-400">
-                ←
-              </span>
+              انتشار
             </button>
           </footer>
         </form>
-
       </section>
     </main>
-  )
+  );
 }
