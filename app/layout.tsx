@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import localFont from 'next/font/local'
+import localFont from 'next/font/local';
+import { Analytics } from '@vercel/analytics/react'
 
 
 const vazirmatn = localFont({
@@ -30,6 +31,7 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
     <html lang="fa">
       <body className={vazirmatn.className}>
         {children}
+        <Analytics />
       </body>
     </html>
   );
