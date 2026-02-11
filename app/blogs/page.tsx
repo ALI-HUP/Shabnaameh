@@ -15,7 +15,6 @@ export default async function BlogPage() {
       style={{
         backgroundImage: "url('/background/photo_2026-02-09_22-46-50.jpg')",
         backgroundSize: "cover",
-        backgroundPosition: "center",
       }}
     >
     <Header />

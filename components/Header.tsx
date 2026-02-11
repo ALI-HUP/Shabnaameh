@@ -17,15 +17,15 @@ export default function Header() {
 
   return (
     <header className="fixed top-4 left-1/2 z-50 -translate-x-1/2 w-[80%] md:w-[60%] max-w-5xl">
-      <div className="flex items-stretch overflow-hidden rounded-lg border border-gray-700 bg-slate-800/90 shadow-lg shadow-black/80">
+      <div className="flex items-stretch rounded-lg border border-gray-700 bg-slate-800/90 shadow-lg shadow-black/80">
 
-        <Link href="/" className="flex">
+        <Link href="/" className="flex relative z-10">
           <Image
             src={Logo}
             alt="Logo"
             width={40}
             height={40}
-            className="h-full rounded-lg w-auto object-cover"
+            className="h-full w-auto object-cover rounded-lg animate-simple-pulse will-change-transform drop-shadow-[0_0_10px_rgba(300,50,80,0.7)]"
           />
         </Link>
 

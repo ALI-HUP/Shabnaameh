@@ -1,20 +1,21 @@
 import Link from "next/link";
 import Image from "next/image";
 import Logo from "@/public/logo/logo.jpg";
+import Header from "@/components/Header";
 
 export default function HomePage() {
   return (
     <main
       dir="rtl"
-      className="relative p-5 sm:p-6 md:p-10 min-h-screen bg-black text-stone-100"
+      className="relative py-20 md:py-24 p-3 sm:p-5 md:p-7 min-h-screen bg-black text-stone-100"
       style={{
         backgroundImage: "url('/background/photo_2026-02-09_22-46-50.jpg')",
         backgroundSize: "cover",
-        backgroundPosition: "center",
       }}
     >
-      <div className="pointer-events-none absolute inset-0 bg-red-700/45 mix-blend-multiply" />
+    <Header />
 
+      <div className="pointer-events-none absolute inset-0 bg-red-700/45 mix-blend-multiply" />
       <div className="pointer-events-none absolute inset-0 bg-black/30" />
 
       <section className="relative mx-auto max-w-4xl px-5 sm:px-7 md:px-7 py-16 sm:py-24 md:py-32 space-y-20 sm:space-y-28 bg-black/60 backdrop-blur-sm rounded-2xl">
