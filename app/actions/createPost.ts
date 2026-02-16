@@ -16,11 +16,18 @@ function makeKey(prefix: string) {
 }
 
 export async function createPost(formData: FormData) {
-  const title = formData.get('title')?.toString()
-  const body = formData.get('body')?.toString()
+  const rawTitle = formData.get('title')
+  const rawBody = formData.get('body')
 
-  if (!title || !body) {
+  if (!rawTitle || !rawBody) {
     throw new Error('Missing fields')
+  }
+
+  const title = rawTitle.toString().trim()
+  const body = rawBody.toString().trim()
+
+  if (title.length > 20) {
+    throw new Error('Title cannot be longer than 20 characters')
   }
 
   const slug = makeSlug()

@@ -18,7 +18,7 @@ export default function HomePage() {
       <div className="pointer-events-none absolute inset-0 bg-red-700/45 mix-blend-multiply" />
       <div className="pointer-events-none absolute inset-0 bg-black/30" />
 
-      <section className="relative mx-auto max-w-4xl px-5 sm:px-7 md:px-7 py-16 sm:py-24 md:py-32 space-y-20 sm:space-y-28 bg-black/60 backdrop-blur-sm rounded-2xl">
+      <section className="relative mx-auto max-w-4xl px-5 sm:px-7 md:px-7 py-1 sm:py-2 md:pt-28 space-y-20 sm:space-y-28 bg-black/60 backdrop-blur-sm rounded-2xl">
         <header className="space-y-8 sm:space-y-12 text-center md:text-right">
           <div className="flex items-center justify-start gap-4 sm:gap-6">
             <div className="relative">
@@ -88,6 +88,11 @@ export default function HomePage() {
             نوشتن شب‌نامه
           </Link>
         </footer>
+        <div className="text-white flex items-center justify-center p-5">
+          <p>
+            برای تجربه بهتر، از لپتاپ استفاده کنید.
+          </p>
+        </div>
       </section>
     </main>
   );
