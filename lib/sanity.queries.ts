@@ -1,16 +1,16 @@
 export const allPostsQuery = `
-  *[_type == "post" && defined(slug.current)] | order(publishedAt desc) {
+  *[_type == "post" && defined(slug.current)]
+  | order(publishedAt desc, _createdAt desc) {
     _id,
     title,
-    slug {
-      current
-    },
+    slug { current },
     publishedAt
   }
 `
 
 export const singlePostQuery = `
-  *[_type == "post" && slug.current == $slug][0] {
+  *[_type == "post" && defined(slug.current) && slug.current == $slug][0] {
+    _id,
     title,
     body,
     publishedAt
