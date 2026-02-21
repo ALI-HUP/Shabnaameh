@@ -41,7 +41,7 @@ export default function WritePage() {
       <div className="pointer-events-none absolute inset-0 bg-black/65" />
       <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-black/10 via-transparent to-black/30" />
 
-      <section className="relative mx-auto max-w-4xl px-5 sm:px-6 md:px-7 py-12 sm:py-16 md:py-20 space-y-12 sm:space-y-16 bg-gray-900/55 backdrop-blur-md rounded-xl border border-gray-800/40">
+      <section className="relative mx-auto max-w-4xl px-5 sm:px-6 md:px-7 pt-12 sm:pt-16 md:pt-20 pb-6 sm:pb-8 md:pb-10 space-y-12 sm:space-y-16 bg-gray-900/55 backdrop-blur-md rounded-xl border border-gray-800/40">
 
         <header className="space-y-6 text-center md:text-right">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-stone-50">
