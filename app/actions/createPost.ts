@@ -38,8 +38,8 @@ export async function createPost(_: any, formData: FormData) {
   if (body.length < 10)
     return { error: 'متن باید حداقل ۱۰ کاراکتر باشد.' }
 
-  if (body.length > 5000)
-    return { error: 'متن بیش از حد طولانی است.' }
+  if (body.length > 20000)
+    return { error: 'متن نمی‌تواند بیشتر از ۲۰۰۰۰ کاراکتر باشد.' }
 
   const blocks = body
     .split('\n')
