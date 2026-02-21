@@ -3,7 +3,7 @@ import { allPostsQuery } from '@/lib/sanity.queries'
 import Header from '@/components/Header'
 import Link from 'next/link'
 
-export const revalidate = 60
+export const dynamic = 'force-dynamic'
 
 type Post = {
   _id: string
