@@ -86,7 +86,7 @@ export default async function PostPage({ params }: PageProps) {
         <div className="pt-14 text-left">
           <Link
             href="/blogs"
-            className="inline text-sm text-stone-400 transition-all duration-300 hover:text-white hover:[text-shadow:0_0_6px_rgba(244,63,94,0.9),0_0_16px_rgba(244,63,94,0.7)]"
+            className="inline text-sm text-stone-400 transition-all duration-300 hover:text-white hover:[text-shadow:0_0_8px_rgba(244,63,94,0.9),0_0_18px_rgba(244,63,94,0.8),0_0_28px_rgba(244,63,94,0.6)]"
           >
             پایان شب‌نامه
           </Link>
