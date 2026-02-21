@@ -84,10 +84,10 @@ export default async function PostPage({ params }: PageProps) {
           {post.body && <PortableText value={post.body} />}
         </div>
 
-        <div className="pt-14 flex items-center justify-between text-left">
+        <div className="pt-14 flex items-center justify-between">
           <Link
             href="/blogs"
-            className="inline text-sm text-stone-400 transition-all duration-300 hover:text-white hover:[text-shadow:0_0_6px_rgba(244,63,94,0.9),0_0_16px_rgba(244,63,94,0.7)]"
+            className="text-sm text-stone-400 hover:text-white transition-all"
           >
             پایان شب‌نامه
           </Link>

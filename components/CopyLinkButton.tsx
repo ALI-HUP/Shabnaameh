@@ -1,26 +1,55 @@
 'use client'
 
 import { useState } from 'react'
+import { IconButton, Snackbar, Alert } from '@mui/material'
+import ShareIcon from '@mui/icons-material/Share'
 
 export default function CopyLinkButton() {
-  const [copied, setCopied] = useState(false)
+  const [open, setOpen] = useState(false)
 
-  async function handleCopy() {
+  const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(window.location.href)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
+      setOpen(true)
     } catch {
-      setCopied(false)
+      setOpen(false)
     }
   }
 
   return (
-    <button
-      onClick={handleCopy}
-      className="text-sm text-stone-400 transition-all duration-300 hover:text-white hover:[text-shadow:0_0_6px_rgba(244,63,94,0.9),0_0_16px_rgba(244,63,94,0.7)]"
-    >
-      {copied ? 'کپی شد ✓' : 'کپی لینک'}
-    </button>
+    <>
+      <IconButton
+        onClick={handleCopy}
+        sx={{
+          color: '#a8a29e',
+          transition: 'all .3s',
+          '&:hover': {
+            color: '#f43f5e',
+            backgroundColor: 'rgba(244,63,94,0.08)',
+          },
+        }}
+      >
+        <ShareIcon fontSize="small" />
+      </IconButton>
+
+      <Snackbar
+        open={open}
+        autoHideDuration={2500}
+        onClose={() => setOpen(false)}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+      >
+        <Alert
+          severity="success"
+          variant="filled"
+          sx={{
+            backgroundColor: '#1f1f1f',
+            color: '#fff',
+            border: '1px solid rgba(244,63,94,0.5)',
+          }}
+        >
+          لینک با موفقیت کپی شد
+        </Alert>
+      </Snackbar>
+    </>
   )
 }
