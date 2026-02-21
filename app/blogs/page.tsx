@@ -78,7 +78,7 @@ export default async function BlogPage() {
             })}
           </section>
         )}
-        <div className="text-white flex text-sm items-center justify-center flex-col gap-3 p-5">
+        <div className="text-white flex text-sm items-center text-center justify-center flex-col gap-3 p-5">
           <p>
             برای تجربه بهتر، از لپتاپ استفاده کنید.
           </p>
