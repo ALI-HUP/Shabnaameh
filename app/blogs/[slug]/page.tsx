@@ -55,7 +55,7 @@ export default async function PostPage({ params }: PageProps) {
           </div>
 
           <Link href={"/blogs"}>
-            <footer className="pt-14 text-sm text-stone-400 text-left hover:text-white hover:drop-shadow-[0_0_10px_rgba(300,50,80,0.7)]">
+            <footer className="pt-14 text-sm text-stone-400 text-left hover:text-white hover:drop-shadow-red-700">
               پایان شب‌نامه
             </footer>
           </Link>

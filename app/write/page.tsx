@@ -1,10 +1,12 @@
 'use client'
 
+import { useState } from 'react'
 import Header from '@/components/Header'
 import { createPost } from "../actions/createPost";
 
-
 export default function WritePage() {
+  const [title, setTitle] = useState("")
+
   return (
     <main
       dir="rtl"
@@ -37,16 +39,31 @@ export default function WritePage() {
             >
               عنوان
             </label>
-            <input
-              id="title"
-              name="title"
-              type="text"
-              required
-              maxLength={20}
-              dir="rtl"
-              placeholder="عنوان شب‌نامه را اینجا بنویس…  (حداکثر ۲۰ کاراکتر)"
-              className="w-full px-4 sm:px-5 py-3.5 bg-gray-800/65 border border-gray-700 rounded-lg text-base sm:text-lg text-stone-50 placeholder:text-stone-500 focus:outline-none focus:border-rose-600 focus:ring-2 focus:ring-rose-600/20 transition-all"
-            />
+
+            <div className="relative">
+              <input
+                id="title"
+                name="title"
+                type="text"
+                required
+                maxLength={20}
+                dir="rtl"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder="عنوان شب‌نامه را اینجا بنویس…  (حداکثر ۲۰ کاراکتر)"
+                className="w-full px-4 sm:px-5 py-3.5 pl-16 bg-gray-800/65 border border-gray-700 rounded-lg text-base sm:text-lg text-stone-50 placeholder:text-stone-500 focus:outline-none focus:border-rose-600 focus:ring-2 focus:ring-rose-600/20 transition-all"
+              />
+
+              <span
+                className={`absolute left-4 top-1/2 -translate-y-1/2 text-sm ${
+                  title.length === 20
+                    ? "text-rose-500 font-medium"
+                    : "text-stone-400"
+                }`}
+              >
+                {title.length}/20
+              </span>
+            </div>
           </section>
 
           <section className="space-y-3">
