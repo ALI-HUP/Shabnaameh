@@ -1,11 +1,28 @@
 'use client'
 
 import { useState } from 'react'
+import { useFormState, useFormStatus } from 'react-dom'
 import Header from '@/components/Header'
 import { createPost } from "../actions/createPost";
 
+function SubmitButton() {
+  const { pending } = useFormStatus()
+
+  return (
+    <button
+      type="submit"
+      disabled={pending}
+      className="inline-flex items-center justify-center px-6 sm:px-8 py-3 bg-rose-700 hover:bg-rose-600 disabled:opacity-60 disabled:cursor-not-allowed text-white font-medium rounded-lg transition-all shadow-sm hover:shadow-md text-base"
+    >
+      {pending ? 'در حال انتشار...' : 'انتشار'}
+    </button>
+  )
+}
+
 export default function WritePage() {
   const [title, setTitle] = useState("")
+  const [body, setBody] = useState("")
+  const [state, formAction] = useFormState(createPost, { error: "" })
 
   return (
     <main
@@ -16,13 +33,13 @@ export default function WritePage() {
         backgroundSize: "cover",
       }}
     >
-    <Header />
+      <Header />
 
       <div className="pointer-events-none absolute inset-0 bg-black/65" />
       <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-black/10 via-transparent to-black/30" />
 
       <section className="relative mx-auto max-w-4xl px-5 sm:px-6 md:px-7 py-12 sm:py-16 md:py-20 space-y-12 sm:space-y-16 bg-gray-900/55 backdrop-blur-md rounded-xl border border-gray-800/40">
-        
+
         <header className="space-y-6 text-center md:text-right">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-stone-50">
             نوشتن شب‌نامه
@@ -31,12 +48,16 @@ export default function WritePage() {
 
         <div className="border-t border-gray-700/50 w-full" />
 
-        <form action={createPost} className="space-y-8 sm:space-y-10">
+        <form action={formAction} className="space-y-8 sm:space-y-10">
+
+          {state?.error && (
+            <div className="text-rose-500 text-sm font-medium">
+              {state.error}
+            </div>
+          )}
+
           <section className="space-y-3">
-            <label 
-              htmlFor="title" 
-              className="block text-lg sm:text-xl font-medium text-stone-200"
-            >
+            <label htmlFor="title" className="block text-lg sm:text-xl font-medium text-stone-200">
               عنوان
             </label>
 
@@ -50,53 +71,48 @@ export default function WritePage() {
                 dir="rtl"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder="عنوان شب‌نامه را اینجا بنویس…  (حداکثر ۲۰ کاراکتر)"
-                className="w-full px-4 sm:px-5 py-3.5 pl-16 bg-gray-800/65 border border-gray-700 rounded-lg text-base sm:text-lg text-stone-50 placeholder:text-stone-500 focus:outline-none focus:border-rose-600 focus:ring-2 focus:ring-rose-600/20 transition-all"
+                className="w-full px-4 sm:px-5 py-3.5 pl-16 bg-gray-800/65 border border-gray-700 rounded-lg text-base sm:text-lg text-stone-50"
               />
-
-              <span
-                className={`absolute left-4 top-1/2 -translate-y-1/2 text-sm ${
-                  title.length === 20
-                    ? "text-rose-500 font-medium"
-                    : "text-stone-400"
-                }`}
-              >
+              <span className={`absolute left-4 top-1/2 -translate-y-1/2 text-sm ${title.length === 20 ? "text-rose-500 font-medium" : "text-stone-400"}`}>
                 {title.length}/20
               </span>
             </div>
           </section>
 
           <section className="space-y-3">
-            <label 
-              htmlFor="body" 
-              className="block text-lg sm:text-xl font-medium text-stone-200"
-            >
+            <label htmlFor="body" className="block text-lg sm:text-xl font-medium text-stone-200">
               متن شب‌نامه
             </label>
-            <textarea
-              id="body"
-              name="body"
-              required
-              rows={15}
-              dir="rtl"
-              placeholder="آزادی که درباره آزادی بنویسی..."
-              className="w-full px-4 sm:px-5 py-4 bg-gray-800/65 border border-gray-700 rounded-lg text-base sm:text-lg leading-relaxed text-stone-50 placeholder:text-stone-500 resize-y min-h-80 sm:min-h-120 focus:outline-none focus:border-rose-600 focus:ring-2 focus:ring-rose-600/20 transition-all"
-            />
+
+            <div className="relative">
+              <textarea
+                id="body"
+                name="body"
+                required
+                rows={15}
+                dir="rtl"
+                value={body}
+                onChange={(e) => setBody(e.target.value)}
+                className="w-full px-4 sm:px-5 py-4 bg-gray-800/65 border border-gray-700 rounded-lg text-base sm:text-lg text-stone-50 resize-y"
+              />
+              <span className={`absolute left-4 bottom-4 text-sm ${body.length < 10 ? "text-rose-500 font-medium" : "text-stone-400"}`}>
+                {body.length}/10
+              </span>
+            </div>
           </section>
 
           <footer className="pt-4 sm:pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
-            <span className="text-sm text-stone-400 leading-relaxed max-w-md">
-              پس از انتشار، نوشته مستقیماً وارد آرشیو شب‌نامه
-              <br />
-              می‌شود و قابل ویرایش یا حذف نخواهد بود.
-            </span>
+            <div className="text-sm text-stone-400 leading-relaxed max-w-md space-y-2">
+              <p>
+                پس از انتشار، نوشته مستقیماً وارد آرشیو شب‌نامه
+                می‌شود و قابل ویرایش یا حذف نخواهد بود.
+              </p>
+              <p className="text-stone-400">
+                انتشار ممکن است چند دقیقه زمان ببرد.
+              </p>
+            </div>
 
-            <button
-              type="submit"
-              className="inline-flex items-center justify-center px-6 sm:px-8 py-3 bg-rose-700 hover:bg-rose-600 text-white font-medium rounded-lg transition-all shadow-sm hover:shadow-md text-base"
-            >
-              انتشار
-            </button>
+            <SubmitButton />
           </footer>
         </form>
       </section>

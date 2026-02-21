@@ -5,8 +5,15 @@ import Link from 'next/link'
 
 export const revalidate = 60
 
+type Post = {
+  _id: string
+  title: string
+  slug: { current: string }
+  publishedAt?: string
+}
+
 export default async function BlogPage() {
-  const posts = await sanityClient.fetch(allPostsQuery)
+  const posts: Post[] = await sanityClient.fetch(allPostsQuery)
 
   return (
     <main
@@ -17,7 +24,7 @@ export default async function BlogPage() {
         backgroundSize: "cover",
       }}
     >
-    <Header />
+      <Header />
       
       <div className="pointer-events-none absolute inset-0 bg-black/65" />
       <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-black/10 via-transparent to-black/30" />
@@ -38,33 +45,39 @@ export default async function BlogPage() {
 
         <div className="border-t border-gray-700/50" />
 
-        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
-          {posts.map((post: any, i: number) => {
-            const number = posts.length - i
+        {posts.length === 0 ? (
+          <p className="text-stone-400 text-center">
+            هنوز شب‌نامه‌ای منتشر نشده است.
+          </p>
+        ) : (
+          <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
+            {posts.map((post, i) => {
+              const number = posts.length - i
 
-            return (
-              <Link
-                key={post._id}
-                href={`/blogs/${post.slug.current}`}
-                className="group relative flex flex-col justify-between rounded-xl border border-gray-700/50 bg-gray-800/55 backdrop-blur-sm p-6 transition-all hover:border-rose-600/60 hover:bg-gray-800/70"
-              >
-                <span className="text-xs font-medium text-stone-400">
-                  شب‌نامه {String(number).padStart(2, '0')}
-                </span>
-
-                <h2 className="mt-6 text-base sm:text-lg leading-relaxed font-medium text-stone-100 group-hover:text-stone-50 transition-colors">
-                  {post.title}
-                </h2>
-
-                {post.publishedAt && (
-                  <span className="mt-6 text-xs text-stone-400">
-                    {new Date(post.publishedAt).toLocaleDateString('fa-IR')}
+              return (
+                <Link
+                  key={post._id}
+                  href={`/blogs/${post.slug.current}`}
+                  className="group relative flex flex-col justify-between rounded-xl border border-gray-700/50 bg-gray-800/55 backdrop-blur-sm p-6 transition-all hover:border-rose-600/60 hover:bg-gray-800/70"
+                >
+                  <span className="text-xs font-medium text-stone-400">
+                    شب‌نامه {String(number).padStart(2, '0')}
                   </span>
-                )}
-              </Link>
-            )
-          })}
-        </section>
+
+                  <h2 className="mt-6 text-base sm:text-lg leading-relaxed font-medium text-stone-100 group-hover:text-stone-50 transition-colors">
+                    {post.title}
+                  </h2>
+
+                  {post.publishedAt && (
+                    <span className="mt-6 text-xs text-stone-400">
+                      {new Date(post.publishedAt).toLocaleDateString('fa-IR')}
+                    </span>
+                  )}
+                </Link>
+              )
+            })}
+          </section>
+        )}
 
       </section>
     </main>
