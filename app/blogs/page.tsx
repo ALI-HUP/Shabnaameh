@@ -25,7 +25,7 @@ export default async function BlogPage() {
       }}
     >
       <Header />
-      
+
       <div className="pointer-events-none absolute inset-0 bg-black/65" />
       <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-black/10 via-transparent to-black/30" />
 
