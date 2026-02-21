@@ -5,7 +5,7 @@ import { singlePostQuery } from '@/lib/sanity.queries'
 import { PortableText } from '@portabletext/react'
 import { notFound } from 'next/navigation'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 60
 
 type PageProps = {
   params: {
@@ -13,10 +13,20 @@ type PageProps = {
   }
 }
 
+type Post = {
+  _id: string
+  title: string
+  body: any
+  publishedAt?: string
+}
+
 export default async function PostPage({ params }: PageProps) {
-  const post = await sanityClient.fetch(singlePostQuery, {
-    slug: params.slug,
-  })
+  if (!params.slug) return notFound()
+
+  const post: Post | null = await sanityClient.fetch(
+    singlePostQuery,
+    { slug: params.slug }
+  )
 
   if (!post) return notFound()
 
@@ -29,7 +39,7 @@ export default async function PostPage({ params }: PageProps) {
         backgroundSize: 'cover',
       }}
     >
-    <Header />
+      <Header />
 
       <div className="pointer-events-none absolute inset-0 bg-black/65" />
       <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-black/10 via-transparent to-black/30" />
@@ -50,15 +60,15 @@ export default async function PostPage({ params }: PageProps) {
 
         <div className="border-t border-gray-700/50" />
 
-          <div>
-            <PortableText value={post.body} />
-          </div>
+        <div>
+          <PortableText value={post.body} />
+        </div>
 
-          <Link href={"/blogs"}>
-            <footer className="pt-14 text-sm text-stone-400 text-left transition-all duration-300 hover:text-white hover:[text-shadow:0_0_6px_rgba(244,63,94,0.9),0_0_16px_rgba(244,63,94,0.7)]">
-              پایان شب‌نامه
-            </footer>
-          </Link>
+        <Link href="/blogs">
+          <footer className="pt-14 text-sm text-stone-400 text-left transition-all duration-300 hover:text-white hover:[text-shadow:0_0_6px_rgba(244,63,94,0.9),0_0_16px_rgba(244,63,94,0.7)]">
+            پایان شب‌نامه
+          </footer>
+        </Link>
 
       </article>
     </main>
