@@ -1,9 +1,11 @@
 import Header from '@/components/Header'
+import type { PortableTextBlock } from '@portabletext/types'
 import Link from 'next/link'
 import { sanityClient } from '@/lib/sanity.client'
 import { singlePostQuery } from '@/lib/sanity.queries'
 import { PortableText } from '@portabletext/react'
 import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
 
 export const revalidate = 60
 
@@ -16,8 +18,25 @@ type PageProps = {
 type Post = {
   _id: string
   title: string
-  body: any
+  body: PortableTextBlock[]
   publishedAt?: string
+}
+
+export async function generateMetadata(
+  { params }: PageProps
+): Promise<Metadata> {
+  const post: Post | null = await sanityClient.fetch(
+    singlePostQuery,
+    { slug: params.slug }
+  )
+
+  if (!post) {
+    return { title: 'شب‌نامه یافت نشد' }
+  }
+
+  return {
+    title: post.title,
+  }
 }
 
 export default async function PostPage({ params }: PageProps) {
@@ -61,7 +80,7 @@ export default async function PostPage({ params }: PageProps) {
         <div className="border-t border-gray-700/50" />
 
         <div>
-          <PortableText value={post.body} />
+          {post.body && <PortableText value={post.body} />}
         </div>
 
         <Link href="/blogs">
