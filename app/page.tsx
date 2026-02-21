@@ -88,9 +88,12 @@ export default function HomePage() {
             نوشتن شب‌نامه
           </Link>
         </footer>
-        <div className="text-white flex text-sm items-center justify-center p-5">
+        <div className="text-white flex text-sm items-center justify-center flex-col gap-3 p-5">
           <p>
             برای تجربه بهتر، از لپتاپ استفاده کنید.
+          </p>
+          <p>
+            برای استفاده از سایت نیازی به VPN نیست، ولی برای امنیت بیشتر آن را روشن کنید.
           </p>
         </div>
       </section>
