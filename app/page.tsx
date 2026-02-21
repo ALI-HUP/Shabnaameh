@@ -88,7 +88,7 @@ export default function HomePage() {
             نوشتن شب‌نامه
           </Link>
         </footer>
-        <div className="text-white flex items-center justify-center p-5">
+        <div className="text-white flex text-sm items-center justify-center p-5">
           <p>
             برای تجربه بهتر، از لپتاپ استفاده کنید.
           </p>

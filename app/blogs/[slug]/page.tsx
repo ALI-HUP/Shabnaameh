@@ -1,4 +1,5 @@
 import Header from '@/components/Header'
+import Link from 'next/link'
 import { sanityClient } from '@/lib/sanity.client'
 import { singlePostQuery } from '@/lib/sanity.queries'
 import { PortableText } from '@portabletext/react'
@@ -53,9 +54,11 @@ export default async function PostPage({ params }: PageProps) {
             <PortableText value={post.body} />
           </div>
 
-          <footer className="pt-14 text-sm text-stone-400 text-left">
-            پایان شب‌نامه
-          </footer>
+          <Link href={"/blogs"}>
+            <footer className="pt-14 text-sm text-stone-400 text-left hover:text-white hover:drop-shadow-[0_0_10px_rgba(300,50,80,0.7)]">
+              پایان شب‌نامه
+            </footer>
+          </Link>
 
       </article>
     </main>
