@@ -2,6 +2,7 @@
 
 import { sanityWriteClient } from '@/lib/sanity.write'
 import { redirect } from 'next/navigation'
+import { revalidatePath } from 'next/cache'
 
 function slugify(text: string) {
   return text
@@ -64,6 +65,9 @@ export async function createPost(_: any, formData: FormData) {
     body: blocks,
     publishedAt: new Date().toISOString(),
   })
+
+  revalidatePath('/blogs')
+  revalidatePath(`/blogs/${slug}`)
 
   redirect('/blogs')
 }
