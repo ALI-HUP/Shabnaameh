@@ -85,14 +85,14 @@ export default async function PostPage({ params }: PageProps) {
         </div>
 
         <div className="pt-14 flex items-center justify-between">
+          <CopyLinkButton />
+
           <Link
             href="/blogs"
             className="text-sm text-stone-400 hover:text-white transition-all"
           >
             پایان شب‌نامه
           </Link>
-
-          <CopyLinkButton />
         </div>
 
       </article>

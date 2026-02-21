@@ -23,7 +23,7 @@ const vazirmatn = localFont({
 
 export const metadata: Metadata = {
   title: "شب‌نامه",
-  description: "شب‌نامه آزادی",
+  description: "شب‌نامه آزادی 📜",
 };
 
 export default function RootLayout({children,}: Readonly<{children: React.ReactNode;}>) {
