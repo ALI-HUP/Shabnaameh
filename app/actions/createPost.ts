@@ -38,8 +38,17 @@ export async function createPost(_: any, formData: FormData) {
   if (body.length < 10)
     return { error: 'متن باید حداقل ۱۰ کاراکتر باشد.' }
 
-  if (body.length > 20000)
-    return { error: 'متن نمی‌تواند بیشتر از ۲۰۰۰۰ کاراکتر باشد.' }
+  if (body.length > 30000)
+    return { error: 'متن نمی‌تواند بیشتر از ۳۰۰۰۰ کاراکتر باشد.' }
+
+  const recentPost = await sanityWriteClient.fetch(
+    `*[_type == "post" && title == $title && dateTime(publishedAt) > dateTime(now()) - 10][0]`,
+    { title }
+  )
+
+  if (recentPost) {
+    return { error: 'این نوشته قبلاً ثبت شده است.' }
+  }
 
   const blocks = body
     .split('\n')

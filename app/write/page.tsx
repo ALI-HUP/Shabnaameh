@@ -25,7 +25,7 @@ export default function WritePage() {
   const [state, formAction] = useFormState(createPost, { error: "" })
 
   const minBody = 10
-  const maxBody = 20000
+  const maxBody = 30000
 
   return (
     <main
