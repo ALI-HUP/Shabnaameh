@@ -13,11 +13,3 @@ body {
 .animate-simple-pulse {
   animation: simple-pulse 4s ease-in-out infinite;
 }
-
-.ql-editor {
-  direction: rtl;
-  text-align: right;
-  min-height: 250px;
-  line-height: 1.9;
-  font-size: 16px;
-}

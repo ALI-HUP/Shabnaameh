@@ -21,7 +21,6 @@
     "next-sanity": "^9.4.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-quill": "^2.0.0",
     "slugify": "^1.6.6"
   },
   "devDependencies": {

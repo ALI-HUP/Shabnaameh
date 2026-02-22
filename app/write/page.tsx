@@ -1,13 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import dynamic from 'next/dynamic'
 import { useFormState, useFormStatus } from 'react-dom'
 import Header from '@/components/Header'
 import { createPost } from "../actions/createPost";
-import 'react-quill/dist/quill.snow.css'
-
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
 
 function SubmitButton() {
   const { pending } = useFormStatus()
@@ -30,14 +26,6 @@ export default function WritePage() {
 
   const minBody = 10
   const maxBody = 50000
-
-  const modules = {
-    toolbar: [
-      ['bold', 'italic'],
-      [{ list: 'ordered' }, { list: 'bullet' }],
-      ['clean'],
-    ],
-  }
 
   return (
     <main
@@ -95,22 +83,21 @@ export default function WritePage() {
           </section>
 
           <section className="space-y-3">
-            <label className="block text-lg sm:text-xl font-medium text-stone-200">
+            <label htmlFor="body" className="block text-lg sm:text-xl font-medium text-stone-200">
               متن شب‌نامه
             </label>
 
             <div className="relative">
-              <div className="bg-gray-800/65 border border-gray-700 rounded-lg">
-                <ReactQuill
-                  theme="snow"
-                  value={body}
-                  onChange={setBody}
-                  modules={modules}
-                />
-              </div>
-
-              <input type="hidden" name="body" value={body} />
-
+              <textarea
+                id="body"
+                name="body"
+                required
+                rows={15}
+                dir="rtl"
+                value={body}
+                onChange={(e) => setBody(e.target.value)}
+                className="w-full px-4 sm:px-5 py-4 bg-gray-800/65 border border-gray-700 rounded-lg text-base sm:text-lg leading-8 sm:leading-9 text-stone-50 resize-y"
+              />
               <span
                 className={`absolute left-4 bottom-4 text-sm ${
                   body.length < minBody || body.length > maxBody
@@ -137,7 +124,6 @@ export default function WritePage() {
             <SubmitButton />
           </footer>
         </form>
-
         <div className="text-white flex text-sm items-center text-center justify-center flex-col gap-3 p-5">
           <p>
             برای تجربه بهتر، از لپتاپ استفاده کنید.
@@ -146,7 +132,6 @@ export default function WritePage() {
             برای استفاده از سایت نیازی به VPN نیست، ولی برای امنیت بیشتر آن را روشن کنید.
           </p>
         </div>
-
       </section>
     </main>
   );
