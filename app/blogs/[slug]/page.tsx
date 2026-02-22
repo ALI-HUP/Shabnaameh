@@ -78,9 +78,9 @@ export default async function PostPage({ params }: PageProps) {
           )}
 
           {post.publishedAt && (
-            <span className="block text-sm text-stone-400 mt-2">
+            <div className="mt-3 inline-flex items-center px-3 py-1 text-xs bg-stone-700/30 border border-stone-600/40 text-stone-300 rounded-full">
               {new Date(post.publishedAt).toLocaleDateString('fa-IR')}
-            </span>
+            </div>
           )}
         </header>
 

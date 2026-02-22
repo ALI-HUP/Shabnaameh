@@ -27,7 +27,7 @@ export default function CopyLinkButton() {
         className="inline-flex items-center gap-2 px-4 py-1.5 text-sm bg-rose-700/20 border border-rose-700/40 text-rose-400 rounded-full transition-all hover:bg-rose-700/30 hover:border-rose-500"
       >
         <ShareIcon sx={{ fontSize: 16 }} />
-        اشتراک
+        اشتراک گذاری
       </button>
 
       <Snackbar
