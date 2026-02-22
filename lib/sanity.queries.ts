@@ -16,3 +16,17 @@ export const singlePostQuery = `
     publishedAt
   }
 `
+
+export const paginatedPostsQuery = `
+  *[_type == "post" && defined(slug.current)] 
+  | order(publishedAt desc) [$start...$end] {
+    _id,
+    title,
+    slug { current },
+    publishedAt
+  }
+`
+
+export const postsCountQuery = `
+  count(*[_type == "post" && defined(slug.current)])
+`

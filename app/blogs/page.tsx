@@ -1,9 +1,12 @@
-import { sanityClient } from '@/lib/sanity.client'
-import { allPostsQuery } from '@/lib/sanity.queries'
-import Header from '@/components/Header'
-import Link from 'next/link'
+import { sanityClient } from '@/lib/sanity.client';
+import { paginatedPostsQuery, postsCountQuery } from '@/lib/sanity.queries';
+import Header from '@/components/Header';
+import Link from 'next/link';
+import PaginationComponent from '@/components/pagination';
 
 export const dynamic = 'force-dynamic'
+
+const POSTS_PER_PAGE = 12
 
 type Post = {
   _id: string
@@ -12,8 +15,23 @@ type Post = {
   publishedAt?: string
 }
 
-export default async function BlogPage() {
-  const posts: Post[] = await sanityClient.fetch(allPostsQuery)
+type PageProps = {
+  searchParams: {
+    page?: string
+  }
+}
+
+export default async function BlogPage({ searchParams }: PageProps) {
+  const currentPage = Number(searchParams.page || 1)
+  const start = (currentPage - 1) * POSTS_PER_PAGE
+  const end = start + POSTS_PER_PAGE
+
+  const [posts, totalPosts]: [Post[], number] = await Promise.all([
+    sanityClient.fetch(paginatedPostsQuery, { start, end }),
+    sanityClient.fetch(postsCountQuery),
+  ])
+
+  const totalPages = Math.ceil(totalPosts / POSTS_PER_PAGE)
 
   return (
     <main
@@ -48,34 +66,45 @@ export default async function BlogPage() {
             هنوز شب‌نامه‌ای منتشر نشده است.
           </p>
         ) : (
-          <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
-            {posts.map((post, i) => {
-              const number = posts.length - i
+          <>
+            <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
+              {posts.map((post, i) => {
+                const globalIndex =
+                  totalPosts - ((currentPage - 1) * POSTS_PER_PAGE + i)
 
-              return (
-                <Link
-                  key={post._id}
-                  href={`/blogs/${post.slug.current}`}
-                  className="group relative flex flex-col justify-between rounded-xl border border-gray-700/50 bg-gray-800/55 backdrop-blur-sm p-6 transition-all hover:border-rose-600/60 hover:bg-gray-800/70"
-                >
-                  <span className="text-xs font-medium text-stone-400">
-                    شب‌نامه {String(number).padStart(2, '0')}
-                  </span>
-
-                  <h2 className="mt-6 text-base sm:text-lg leading-relaxed font-medium text-stone-100 group-hover:text-stone-50 transition-colors">
-                    {post.title}
-                  </h2>
-
-                  {post.publishedAt && (
-                    <span className="mt-6 text-xs text-stone-400">
-                      {new Date(post.publishedAt).toLocaleDateString('fa-IR')}
+                return (
+                  <Link
+                    key={post._id}
+                    href={`/blogs/${post.slug.current}`}
+                    className="group relative flex flex-col justify-between rounded-xl border border-gray-700/50 bg-gray-800/55 backdrop-blur-sm p-6 transition-all hover:border-rose-600/60 hover:bg-gray-800/70"
+                  >
+                    <span className="text-xs font-medium text-stone-400">
+                      شب‌نامه {String(globalIndex).padStart(2, '0')}
                     </span>
-                  )}
-                </Link>
-              )
-            })}
-          </section>
+
+                    <h2 className="mt-6 text-base sm:text-lg leading-relaxed font-medium text-stone-100 group-hover:text-stone-50 transition-colors">
+                      {post.title}
+                    </h2>
+
+                    {post.publishedAt && (
+                      <span className="mt-6 text-xs text-stone-400">
+                        {new Date(post.publishedAt).toLocaleDateString('fa-IR')}
+                      </span>
+                    )}
+                  </Link>
+                )
+              })}
+            </section>
+
+            {totalPages > 1 && (
+              <PaginationComponent
+                totalPages={totalPages}
+                currentPage={currentPage}
+              />
+            )}
+          </>
         )}
+
         <div className="text-white flex text-sm items-center text-center justify-center flex-col gap-3 p-5">
           <p>
             برای تجربه بهتر، از لپتاپ استفاده کنید.
