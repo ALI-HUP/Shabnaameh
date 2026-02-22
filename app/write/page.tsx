@@ -1,9 +1,13 @@
 'use client'
 
 import { useState } from 'react'
+import dynamic from 'next/dynamic'
 import { useFormState, useFormStatus } from 'react-dom'
 import Header from '@/components/Header'
-import { createPost } from "../actions/createPost";
+import { createPost } from "../actions/createPost"
+import 'react-quill/dist/quill.snow.css'
+
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
 
 function SubmitButton() {
   const { pending } = useFormStatus()
@@ -26,6 +30,15 @@ export default function WritePage() {
 
   const minBody = 10
   const maxBody = 50000
+
+  const modules = {
+    toolbar: [
+      ['bold', 'italic'],
+      [{ header: [2, 3, false] }],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      ['clean'],
+    ],
+  }
 
   return (
     <main
@@ -60,53 +73,42 @@ export default function WritePage() {
           )}
 
           <section className="space-y-3">
-            <label htmlFor="title" className="block text-lg sm:text-xl font-medium text-stone-200">
+            <label className="block text-lg sm:text-xl font-medium text-stone-200">
               عنوان
             </label>
 
-            <div className="relative">
-              <input
-                id="title"
-                name="title"
-                type="text"
-                required
-                maxLength={20}
-                dir="rtl"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                className="w-full px-4 sm:px-5 py-3.5 pl-16 bg-gray-800/65 border border-gray-700 rounded-lg text-base sm:text-lg text-stone-50"
-              />
+            <input
+              name="title"
+              required
+              maxLength={20}
+              dir="rtl"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="w-full px-4 sm:px-5 py-3 bg-gray-800/65 border border-gray-700 rounded-lg text-base sm:text-lg text-stone-50"
+            />
               <span className={`absolute left-4 top-1/2 -translate-y-1/2 text-sm ${title.length === 20 ? "text-rose-500 font-medium" : "text-stone-400"}`}>
                 {title.length}/20
               </span>
-            </div>
           </section>
 
           <section className="space-y-3">
-            <label htmlFor="body" className="block text-lg sm:text-xl font-medium text-stone-200">
+            <label className="block text-lg sm:text-xl font-medium text-stone-200">
               متن شب‌نامه
             </label>
 
-            <div className="relative">
-              <textarea
-                id="body"
-                name="body"
-                required
-                rows={15}
-                dir="rtl"
+            <div className="bg-gray-800/65 border border-gray-700 rounded-lg">
+              <ReactQuill
+                theme="snow"
                 value={body}
-                onChange={(e) => setBody(e.target.value)}
-                className="w-full px-4 sm:px-5 py-4 bg-gray-800/65 border border-gray-700 rounded-lg text-base sm:text-lg leading-8 sm:leading-9 text-stone-50 resize-y"
+                onChange={setBody}
+                modules={modules}
               />
-              <span
-                className={`absolute left-4 bottom-4 text-sm ${
-                  body.length < minBody || body.length > maxBody
-                    ? "text-rose-500 font-medium"
-                    : "text-stone-400"
-                }`}
-              >
-                {body.length}/{maxBody}
-              </span>
+            </div>
+
+            <input type="hidden" name="body" value={body} />
+
+            <div className={`text-sm ${body.length < minBody || body.length > maxBody ? "text-rose-500" : "text-stone-400"}`}>
+              {body.length}/{maxBody}
             </div>
           </section>
 
@@ -134,5 +136,5 @@ export default function WritePage() {
         </div>
       </section>
     </main>
-  );
+  )
 }

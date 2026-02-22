@@ -11,9 +11,7 @@ import CopyLinkButton from '@/components/CopyLinkButton'
 export const revalidate = 60
 
 type PageProps = {
-  params: {
-    slug: string
-  }
+  params: { slug: string }
 }
 
 type Post = {
@@ -23,30 +21,22 @@ type Post = {
   publishedAt?: string
 }
 
-export async function generateMetadata(
-  { params }: PageProps
-): Promise<Metadata> {
-  const post: Post | null = await sanityClient.fetch(
-    singlePostQuery,
-    { slug: params.slug }
-  )
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const post: Post | null = await sanityClient.fetch(singlePostQuery, {
+    slug: params.slug,
+  })
 
-  if (!post) {
-    return { title: 'شب‌نامه یافت نشد' }
-  }
+  if (!post) return { title: 'شب‌نامه یافت نشد' }
 
-  return {
-    title: post.title,
-  }
+  return { title: post.title }
 }
 
 export default async function PostPage({ params }: PageProps) {
   if (!params.slug) return notFound()
 
-  const post: Post | null = await sanityClient.fetch(
-    singlePostQuery,
-    { slug: params.slug }
-  )
+  const post: Post | null = await sanityClient.fetch(singlePostQuery, {
+    slug: params.slug,
+  })
 
   if (!post) return notFound()
 
@@ -64,7 +54,7 @@ export default async function PostPage({ params }: PageProps) {
       <div className="pointer-events-none absolute inset-0 bg-black/65" />
       <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-black/10 via-transparent to-black/30" />
 
-      <article className="relative mx-auto max-w-3xl px-5 sm:px-6 md:px-8 py-20 sm:py-24 md:py-28 space-y-20 bg-gray-900/55 backdrop-blur-md rounded-xl border border-gray-800/40">
+      <article className="relative mx-auto max-w-3xl px-5 sm:px-6 md:px-8 py-20 sm:py-24 md:py-28 space-y-16 bg-gray-900/55 backdrop-blur-md rounded-xl border border-gray-800/40">
 
         <header className="space-y-6">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-relaxed tracking-tight text-stone-50">
@@ -80,13 +70,12 @@ export default async function PostPage({ params }: PageProps) {
 
         <div className="border-t border-gray-700/50" />
 
-        <div className="prose prose-invert max-w-none leading-8 sm:leading-9 md:leading-10 text-base sm:text-lg">
+        <div className="prose prose-invert max-w-none prose-p:leading-9 prose-headings:mt-10 prose-headings:mb-6 prose-strong:text-rose-400 text-base sm:text-lg">
           <PortableText value={post.body} />
         </div>
 
-        <div className="pt-14 flex items-center justify-between">
+        <div className="pt-10 flex items-center justify-between">
           <CopyLinkButton />
-
           <Link
             href="/blogs"
             className="inline text-sm text-stone-400 transition-all duration-300 hover:text-white hover:[text-shadow:0_0_8px_rgba(244,63,94,0.9),0_0_18px_rgba(244,63,94,0.8),0_0_28px_rgba(244,63,94,0.6)]"
@@ -94,7 +83,6 @@ export default async function PostPage({ params }: PageProps) {
             پایان شب‌نامه
           </Link>
         </div>
-
       </article>
     </main>
   )
