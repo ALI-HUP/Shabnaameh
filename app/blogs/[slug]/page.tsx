@@ -8,7 +8,7 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import CopyLinkButton from '@/components/CopyLinkButton'
 
-export const revalidate = 60
+export const dynamic = 'force-dynamic'
 
 type PageProps = {
   params: { slug: string }
@@ -22,9 +22,11 @@ type Post = {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const post: Post | null = await sanityClient.fetch(singlePostQuery, {
-    slug: params.slug,
-  })
+  const post: Post | null = await sanityClient.fetch(
+    singlePostQuery,
+    { slug: params.slug },
+    { cache: 'no-store' }
+  )
 
   if (!post) return { title: 'شب‌نامه یافت نشد' }
 
@@ -34,9 +36,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function PostPage({ params }: PageProps) {
   if (!params.slug) return notFound()
 
-  const post: Post | null = await sanityClient.fetch(singlePostQuery, {
-    slug: params.slug,
-  })
+  const post: Post | null = await sanityClient.fetch(
+    singlePostQuery,
+    { slug: params.slug },
+    { cache: 'no-store' }
+  )
 
   if (!post) return notFound()
 

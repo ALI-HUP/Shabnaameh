@@ -1,4 +1,5 @@
 import { sanityClient } from '@/lib/sanity.client';
+import { notFound } from 'next/navigation';
 import { paginatedPostsQuery, postsCountQuery } from '@/lib/sanity.queries';
 import Header from '@/components/Header';
 import Link from 'next/link';
@@ -22,16 +23,29 @@ type PageProps = {
 }
 
 export default async function BlogPage({ searchParams }: PageProps) {
-  const currentPage = Number(searchParams.page || 1)
+  const pageNumber = Number(searchParams.page)
+  const currentPage = !pageNumber || pageNumber < 1 ? 1 : pageNumber
   const start = (currentPage - 1) * POSTS_PER_PAGE
   const end = start + POSTS_PER_PAGE
 
   const [posts, totalPosts]: [Post[], number] = await Promise.all([
-    sanityClient.fetch(paginatedPostsQuery, { start, end }),
-    sanityClient.fetch(postsCountQuery),
+    sanityClient.fetch(
+      paginatedPostsQuery,
+      { start, end },
+      { cache: 'no-store' }
+    ),
+    sanityClient.fetch(
+      postsCountQuery,
+      undefined,
+      { cache: 'no-store' }
+    ),
   ])
 
   const totalPages = Math.ceil(totalPosts / POSTS_PER_PAGE)
+
+  if (currentPage > totalPages && totalPages > 0) {
+    return notFound()
+  }
 
   return (
     <main
