@@ -69,7 +69,7 @@ export default async function PostPage({ params }: PageProps) {
           <div className="flex flex-wrap items-center gap-3 mt-3">
             {post.nickname && (
               <span className="px-3 py-1 text-sm bg-rose-700/20 border border-rose-700/40 text-rose-400 rounded-full">
-                {post.nickname}
+                توشته شده توسط: {post.nickname}
               </span>
             )}
 
