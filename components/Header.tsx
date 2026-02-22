@@ -17,7 +17,7 @@ export default function Header() {
 
   return (
     <header className="fixed top-4 left-1/2 z-50 -translate-x-1/2 w-[80%] md:w-[60%] max-w-5xl">
-      <div className="flex items-stretch rounded-lg border border-gray-700 bg-slate-800/90 shadow-lg shadow-black/80">
+      <div className="flex items-stretch rounded-lg border border-gray-700 bg-slate-800/95 shadow-lg shadow-black/85">
 
         <Link href="/" className="flex relative z-10">
           <Image

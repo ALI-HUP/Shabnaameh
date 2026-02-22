@@ -29,8 +29,8 @@ export async function createPost(_: any, formData: FormData) {
   const title = rawTitle.toString().trim()
   const body = rawBody.toString().trim()
 
-  if (title.length < 3)
-    return { error: 'عنوان باید حداقل ۳ کاراکتر باشد.' }
+  if (title.length < 2)
+    return { error: 'عنوان باید حداقل ۲ کاراکتر باشد.' }
 
   if (title.length > 20)
     return { error: 'عنوان نمی‌تواند بیشتر از ۲۰ کاراکتر باشد.' }
@@ -38,8 +38,8 @@ export async function createPost(_: any, formData: FormData) {
   if (body.length < 10)
     return { error: 'متن باید حداقل ۱۰ کاراکتر باشد.' }
 
-  if (body.length > 30000)
-    return { error: 'متن نمی‌تواند بیشتر از ۳۰۰۰۰ کاراکتر باشد.' }
+  if (body.length > 50000)
+    return { error: 'متن نمی‌تواند بیشتر از ۵۰۰۰۰ کاراکتر باشد.' }
 
   const recentPost = await sanityWriteClient.fetch(
     `*[_type == "post" && title == $title && dateTime(publishedAt) > dateTime(now()) - 10][0]`,

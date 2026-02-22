@@ -37,9 +37,7 @@ export default async function BlogPage() {
           </h1>
 
           <p className="text-lg sm:text-xl leading-relaxed text-stone-300">
-            هر کدام یک صدا.
-            <br />
-            هر کدام یک شب.
+            هر کدام یک شب. هر کدام یک صدا...
           </p>
         </header>
 
