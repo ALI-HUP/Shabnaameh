@@ -21,6 +21,7 @@ function makeKey(prefix: string) {
 export async function createPost(_: any, formData: FormData) {
   const rawTitle = formData.get('title')
   const rawBody = formData.get('body')
+  const rawNickname = formData.get('nickname')
 
   if (!rawTitle || !rawBody) {
     return { error: 'همه فیلدها الزامی هستند.' }
@@ -28,6 +29,7 @@ export async function createPost(_: any, formData: FormData) {
 
   const title = rawTitle.toString().trim()
   const body = rawBody.toString().trim()
+  const nickname = rawNickname?.toString().trim() || ''
 
   if (title.length < 2)
     return { error: 'عنوان باید حداقل ۲ کاراکتر باشد.' }
@@ -41,6 +43,9 @@ export async function createPost(_: any, formData: FormData) {
   if (body.length > 50000)
     return { error: 'متن نمی‌تواند بیشتر از ۵۰۰۰۰ کاراکتر باشد.' }
 
+  if (nickname.length > 40)
+    return { error: 'لقب نمی‌تواند بیشتر از ۴۰ کاراکتر باشد.' }
+
   const recentPost = await sanityWriteClient.fetch(
     `*[_type == "post" && title == $title && dateTime(publishedAt) > dateTime(now()) - 10][0]`,
     { title }
@@ -50,19 +55,17 @@ export async function createPost(_: any, formData: FormData) {
     return { error: 'این نوشته قبلاً ثبت شده است.' }
   }
 
-  const blocks = body
-    .split('\n')
-    .map((paragraph) => ({
-      _key: makeKey('block'),
-      _type: 'block',
-      children: [
-        {
-          _key: makeKey('span'),
-          _type: 'span',
-          text: paragraph,
-        },
-      ],
-    }))
+  const blocks = body.split('\n').map((paragraph) => ({
+    _key: makeKey('block'),
+    _type: 'block',
+    children: [
+      {
+        _key: makeKey('span'),
+        _type: 'span',
+        text: paragraph,
+      },
+    ],
+  }))
 
   const slug = `${slugify(title)}-${Date.now().toString(36)}`
 
@@ -70,6 +73,7 @@ export async function createPost(_: any, formData: FormData) {
     _type: 'post',
     title,
     slug: { current: slug },
+    nickname: nickname || undefined,
     body: blocks,
     publishedAt: new Date().toISOString(),
   })

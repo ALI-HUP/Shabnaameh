@@ -83,6 +83,22 @@ export default function WritePage() {
           </section>
 
           <section className="space-y-3">
+            <label htmlFor="nickname" className="block text-lg sm:text-xl font-medium text-stone-200">
+              لقب (اختیاری)
+            </label>
+
+            <input
+              id="nickname"
+              name="nickname"
+              type="text"
+              maxLength={40}
+              dir="rtl"
+              placeholder="مثلاً: یک شهروند"
+              className="w-full px-4 sm:px-5 py-3 bg-gray-800/65 border border-gray-700 rounded-lg text-base sm:text-lg text-stone-50"
+            />
+          </section>
+
+          <section className="space-y-3">
             <label htmlFor="body" className="block text-lg sm:text-xl font-medium text-stone-200">
               متن شب‌نامه
             </label>
