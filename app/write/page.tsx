@@ -115,7 +115,7 @@ export default function WritePage() {
               <textarea
                 id="body"
                 name="body"
-                placeholder="از آزادی بگو"
+                placeholder="از آزادی بگو..."
                 required
                 rows={15}
                 dir="rtl"
