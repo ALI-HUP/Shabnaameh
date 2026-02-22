@@ -18,6 +18,7 @@ type Post = {
   _id: string
   title: string
   body: PortableTextBlock[]
+  nickname?: string
   publishedAt?: string
 }
 
@@ -65,8 +66,19 @@ export default async function PostPage({ params }: PageProps) {
             {post.title}
           </h1>
 
+          {post.nickname && (
+            <div className="flex items-center gap-3 mt-2">
+              <span className="text-xs text-stone-500 tracking-wider">
+                نوشته شده توسط
+              </span>
+              <span className="px-3 py-1 text-sm bg-rose-700/20 border border-rose-700/40 text-rose-400 rounded-full">
+                {post.nickname}
+              </span>
+            </div>
+          )}
+
           {post.publishedAt && (
-            <span className="block text-sm text-stone-400">
+            <span className="block text-sm text-stone-400 mt-2">
               {new Date(post.publishedAt).toLocaleDateString('fa-IR')}
             </span>
           )}

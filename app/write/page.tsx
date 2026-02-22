@@ -71,6 +71,7 @@ export default function WritePage() {
                 type="text"
                 required
                 maxLength={20}
+                placeholder="عنوان شب‌نامه"
                 dir="rtl"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
@@ -84,7 +85,7 @@ export default function WritePage() {
 
           <section className="space-y-3">
             <label htmlFor="nickname" className="block text-lg sm:text-xl font-medium text-stone-200">
-              لقب (اختیاری)
+              لقب
             </label>
 
             <input
@@ -93,7 +94,7 @@ export default function WritePage() {
               type="text"
               maxLength={40}
               dir="rtl"
-              placeholder="مثلاً: یک شهروند"
+              placeholder="مثلاً: یک شهروند (کاملا اختیاری)"
               className="w-full px-4 sm:px-5 py-3 bg-gray-800/65 border border-gray-700 rounded-lg text-base sm:text-lg text-stone-50"
             />
           </section>
@@ -107,6 +108,7 @@ export default function WritePage() {
               <textarea
                 id="body"
                 name="body"
+                placeholder="از آزادی بگو"
                 required
                 rows={15}
                 dir="rtl"
