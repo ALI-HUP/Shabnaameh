@@ -52,7 +52,6 @@ export async function createPost(_: any, formData: FormData) {
 
   const blocks = body
     .split('\n')
-    .filter(p => p.trim() !== '')
     .map((paragraph) => ({
       _key: makeKey('block'),
       _type: 'block',
