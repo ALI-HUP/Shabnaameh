@@ -25,7 +25,7 @@ export default function WritePage() {
   const [state, formAction] = useFormState(createPost, { error: "" })
 
   const minBody = 10
-  const maxBody = 30000
+  const maxBody = 50000
 
   return (
     <main
@@ -96,7 +96,7 @@ export default function WritePage() {
                 dir="rtl"
                 value={body}
                 onChange={(e) => setBody(e.target.value)}
-                className="w-full px-4 sm:px-5 py-4 bg-gray-800/65 border border-gray-700 rounded-lg text-base sm:text-lg text-stone-50 resize-y"
+                className="w-full px-4 sm:px-5 py-4 bg-gray-800/65 border border-gray-700 rounded-lg text-base sm:text-lg leading-8 sm:leading-9 text-stone-50 resize-y"
               />
               <span
                 className={`absolute left-4 bottom-4 text-sm ${

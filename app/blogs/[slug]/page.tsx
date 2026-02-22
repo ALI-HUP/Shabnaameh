@@ -80,8 +80,8 @@ export default async function PostPage({ params }: PageProps) {
 
         <div className="border-t border-gray-700/50" />
 
-        <div>
-          {post.body && <PortableText value={post.body} />}
+        <div className="prose prose-invert max-w-none leading-8 sm:leading-9 md:leading-10 text-base sm:text-lg">
+          <PortableText value={post.body} />
         </div>
 
         <div className="pt-14 flex items-center justify-between">
