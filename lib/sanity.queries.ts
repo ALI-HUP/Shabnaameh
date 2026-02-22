@@ -9,9 +9,10 @@ export const allPostsQuery = `
 `
 
 export const singlePostQuery = `
-  *[_type == "post" && defined(slug.current) && slug.current == $slug][0] {
+  *[_type == "post" && slug.current == $slug][0] {
     _id,
     title,
+    nickname,
     body,
     publishedAt
   }
