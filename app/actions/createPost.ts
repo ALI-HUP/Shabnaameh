@@ -31,11 +31,11 @@ export async function createPost(_: any, formData: FormData) {
   const body = rawBody.toString().trim()
   const nickname = rawNickname?.toString().trim() || ''
 
-  if (title.length < 2)
-    return { error: 'عنوان باید حداقل ۲ کاراکتر باشد.' }
+  if (title.length < 1)
+    return { error: 'عنوان باید حداقل ۱ کاراکتر باشد.' }
 
-  if (title.length > 20)
-    return { error: 'عنوان نمی‌تواند بیشتر از ۲۰ کاراکتر باشد.' }
+  if (title.length > 35)
+    return { error: 'عنوان نمی‌تواند بیشتر از ۳۵ کاراکتر باشد.' }
 
   if (body.length < 10)
     return { error: 'متن باید حداقل ۱۰ کاراکتر باشد.' }

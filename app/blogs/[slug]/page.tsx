@@ -66,22 +66,19 @@ export default async function PostPage({ params }: PageProps) {
             {post.title}
           </h1>
 
-          {post.nickname && (
-            <div className="flex items-center gap-3 mt-2">
-              <span className="text-xs text-stone-400 tracking-wider">
-                نوشته شده توسط
-              </span>
+          <div className="flex flex-wrap items-center gap-3 mt-3">
+            {post.nickname && (
               <span className="px-3 py-1 text-sm bg-rose-700/20 border border-rose-700/40 text-rose-400 rounded-full">
                 {post.nickname}
               </span>
-            </div>
-          )}
+            )}
 
-          {post.publishedAt && (
-            <div className="mt-3 inline-flex items-center px-3 py-1 text-xs bg-stone-700/30 border border-stone-600/40 text-stone-300 rounded-full">
-              {new Date(post.publishedAt).toLocaleDateString('fa-IR')}
-            </div>
-          )}
+            {post.publishedAt && (
+              <span className="px-3 py-1 text-xs bg-stone-700/30 border border-stone-600/40 text-stone-300 rounded-full">
+                {new Date(post.publishedAt).toLocaleDateString('fa-IR')}
+              </span>
+            )}
+          </div>
         </header>
 
         <div className="border-t border-gray-700/50" />

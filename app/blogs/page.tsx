@@ -96,7 +96,7 @@ export default async function BlogPage({ searchParams }: PageProps) {
                       شب‌نامه {String(globalIndex).padStart(2, '0')}
                     </span>
 
-                    <h2 className="mt-6 text-base sm:text-lg leading-relaxed font-medium text-stone-100 group-hover:text-stone-50 transition-colors">
+                    <h2 className="mt-6 text-base sm:text-lg leading-7 sm:leading-8 font-medium text-stone-100 group-hover:text-stone-50 transition-colors line-clamp-3 wrap-break-word">
                       {post.title}
                     </h2>
 

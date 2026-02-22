@@ -26,6 +26,7 @@ export default function WritePage() {
 
   const minBody = 10
   const maxBody = 50000
+  const maxTitle = 35
 
   return (
     <main
@@ -41,7 +42,7 @@ export default function WritePage() {
       <div className="pointer-events-none absolute inset-0 bg-black/65" />
       <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-black/10 via-transparent to-black/30" />
 
-      <section className="relative mx-auto max-w-4xl px-5 sm:px-6 md:px-7 pt-12 sm:pt-16 md:pt-20 pb-5 sm:pb-6 md:pb-7 space-y-12 sm:space-y-16 bg-gray-900/55 backdrop-blur-md rounded-xl border border-gray-800/40">
+      <section className="relative mx-auto max-w-4xl px-5 sm:px-6 md:px-7 pt-12 sm:pt-16 md:pt-20 pb-6 sm:pb-8 md:pb-10 space-y-12 sm:space-y-16 bg-gray-900/55 backdrop-blur-md rounded-xl border border-gray-800/40">
 
         <header className="space-y-6 text-center md:text-right">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-stone-50">
@@ -70,15 +71,21 @@ export default function WritePage() {
                 name="title"
                 type="text"
                 required
-                maxLength={20}
+                maxLength={maxTitle}
                 placeholder="عنوان شب‌نامه"
                 dir="rtl"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="w-full px-4 sm:px-5 py-3.5 pl-16 bg-gray-800/65 border border-gray-700 rounded-lg text-base sm:text-lg text-stone-50"
+                className="w-full px-4 sm:px-5 py-3.5 pl-16 bg-gray-800/65 border border-gray-700 rounded-lg text-base sm:text-lg text-stone-50 focus:outline-none focus:border-rose-600 focus:ring-2 focus:ring-rose-600/20 transition-all"
               />
-              <span className={`absolute left-4 top-1/2 -translate-y-1/2 text-sm ${title.length === 20 ? "text-rose-500 font-medium" : "text-stone-400"}`}>
-                {title.length}/20
+              <span
+                className={`absolute left-4 top-1/2 -translate-y-1/2 text-sm ${
+                  title.length === maxTitle
+                    ? "text-rose-500 font-medium"
+                    : "text-stone-400"
+                }`}
+              >
+                {title.length}/{maxTitle}
               </span>
             </div>
           </section>
@@ -94,8 +101,8 @@ export default function WritePage() {
               type="text"
               maxLength={40}
               dir="rtl"
-              placeholder="مثلاً: یک شهروند (کاملا اختیاری)"
-              className="w-full px-4 sm:px-5 py-3 bg-gray-800/65 border border-gray-700 rounded-lg text-base sm:text-lg text-stone-50"
+              placeholder="مثلاً: یک شهروند (کاملاً اختیاری)"
+              className="w-full px-4 sm:px-5 py-3 bg-gray-800/65 border border-gray-700 rounded-lg text-base sm:text-lg text-stone-50 focus:outline-none focus:border-rose-600 focus:ring-2 focus:ring-rose-600/20 transition-all"
             />
           </section>
 
@@ -114,7 +121,7 @@ export default function WritePage() {
                 dir="rtl"
                 value={body}
                 onChange={(e) => setBody(e.target.value)}
-                className="w-full px-4 sm:px-5 py-4 bg-gray-800/65 border border-gray-700 rounded-lg text-base sm:text-lg leading-8 sm:leading-9 text-stone-50 resize-y"
+                className="w-full px-4 sm:px-5 py-4 bg-gray-800/65 border border-gray-700 rounded-lg text-base sm:text-lg leading-8 sm:leading-9 text-stone-50 resize-y focus:outline-none focus:border-rose-600 focus:ring-2 focus:ring-rose-600/20 transition-all"
               />
               <span
                 className={`absolute left-4 bottom-4 text-sm ${
@@ -134,7 +141,7 @@ export default function WritePage() {
                 پس از انتشار، نوشته مستقیماً وارد آرشیو شب‌نامه
                 می‌شود و قابل ویرایش یا حذف نخواهد بود.
               </p>
-              <p className="text-stone-400">
+              <p>
                 انتشار ممکن است چند دقیقه زمان ببرد.
               </p>
             </div>
@@ -142,7 +149,8 @@ export default function WritePage() {
             <SubmitButton />
           </footer>
         </form>
-        <div className="text-white flex text-sm items-center text-center justify-center flex-col gap-3 p-5">
+
+        <div className="text-white flex text-sm items-center text-center justify-center flex-col gap-3 pt-6">
           <p>
             برای تجربه بهتر، از لپتاپ استفاده کنید.
           </p>
@@ -150,6 +158,7 @@ export default function WritePage() {
             برای استفاده از سایت نیازی به VPN نیست، ولی برای امنیت بیشتر آن را روشن کنید.
           </p>
         </div>
+
       </section>
     </main>
   );
