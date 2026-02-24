@@ -7,6 +7,11 @@ import { PortableText } from '@portabletext/react'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import CopyLinkButton from '@/components/CopyLinkButton'
+import {
+  ThumbUpAltOutlined as ThumbUpAltOutlinedIcon,
+  ThumbDownAltOutlined as ThumbDownAltOutlinedIcon,
+  VisibilityOutlined as VisibilityOutlinedIcon,
+} from '@mui/icons-material'
 
 export const dynamic = 'force-dynamic'
 
@@ -18,8 +23,11 @@ type Post = {
   _id: string
   title: string
   body: PortableTextBlock[]
-  nickname?: string
   publishedAt?: string
+  nickname?: string
+  likes?: number
+  dislikes?: number
+  views?: number
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -44,6 +52,12 @@ export default async function PostPage({ params }: PageProps) {
   )
 
   if (!post) return notFound()
+
+  await sanityClient
+    .patch(post._id)
+    .setIfMissing({ views: 0 })
+    .inc({ views: 1 })
+    .commit()
 
   return (
     <main
@@ -87,6 +101,33 @@ export default async function PostPage({ params }: PageProps) {
           <PortableText value={post.body} />
         </div>
 
+        <div className="pt-8">
+          <div className="flex items-center justify-between bg-gray-800/60 border border-rose-700/40 rounded-xl px-6 py-4 backdrop-blur-sm">
+
+            <button className="flex items-center gap-2 text-stone-300 hover:text-rose-400 transition-all">
+              <ThumbUpAltOutlinedIcon fontSize="small" />
+              <span className="text-sm font-medium">
+                {post.likes ?? 0}
+              </span>
+            </button>
+
+            <button className="flex items-center gap-2 text-stone-300 hover:text-rose-400 transition-all">
+              <ThumbDownAltOutlinedIcon fontSize="small" />
+              <span className="text-sm font-medium">
+                {post.dislikes ?? 0}
+              </span>
+            </button>
+
+            <div className="flex items-center gap-2 text-stone-400">
+              <VisibilityOutlinedIcon fontSize="small" />
+              <span className="text-sm font-medium">
+                {(post.views ?? 0) + 1}
+              </span>
+            </div>
+
+          </div>
+        </div>
+
         <div className="pt-10 flex items-center justify-between">
           <CopyLinkButton />
           <Link
@@ -96,6 +137,7 @@ export default async function PostPage({ params }: PageProps) {
             پایان شب‌نامه
           </Link>
         </div>
+
       </article>
     </main>
   )
