@@ -160,7 +160,7 @@ export default function WritePage() {
             </div>
           </section>
 
-          <footer className="pt-4 sm:pt-6 flex flex-col justify-start sm:flex-row items-start sm:items-center sm:justify-between gap-5">
+          <footer className="pt-4 sm:pt-6 flex flex-col sm:flex-row items-end sm:items-center justify-between gap-5">
             <div className="text-sm text-stone-400 leading-relaxed max-w-md space-y-2">
               <p>
                 پس از انتشار، نوشته وارد آرشیو می‌شود و قابل ویرایش یا حذف نخواهد بود.
