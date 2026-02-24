@@ -4,6 +4,8 @@ import { useState } from 'react'
 import {
   ThumbUpAltOutlined,
   ThumbDownAltOutlined,
+  ThumbUp,
+  ThumbDown,
   VisibilityOutlined,
 } from '@mui/icons-material'
 
@@ -20,20 +22,29 @@ export default function Reactions({
 }) {
   const [localLikes, setLocalLikes] = useState(likes)
   const [localDislikes, setLocalDislikes] = useState(dislikes)
+  const [reaction, setReaction] = useState<'like' | 'dislike' | null>(null)
 
   const react = async (type: 'like' | 'dislike') => {
-    const voted = localStorage.getItem(`voted-${id}`)
-    if (voted) return
+    if (reaction === type) return
 
     await fetch('/api/react', {
       method: 'POST',
       body: JSON.stringify({ id, type }),
     })
 
-    if (type === 'like') setLocalLikes((v) => v + 1)
-    else setLocalDislikes((v) => v + 1)
+    if (type === 'like') {
+      setLocalLikes((v) => v + 1)
+      if (reaction === 'dislike') {
+        setLocalDislikes((v) => v - 1)
+      }
+    } else {
+      setLocalDislikes((v) => v + 1)
+      if (reaction === 'like') {
+        setLocalLikes((v) => v - 1)
+      }
+    }
 
-    localStorage.setItem(`voted-${id}`, type)
+    setReaction(type)
   }
 
   return (
@@ -41,23 +52,35 @@ export default function Reactions({
 
       <button
         onClick={() => react('like')}
-        className="flex items-center gap-2 text-stone-300 hover:text-rose-400 transition-all"
+        className="flex items-center gap-2 transition-all"
       >
-        <ThumbUpAltOutlined fontSize="small" />
-        <span className="text-sm font-medium">{localLikes}</span>
+        {reaction === 'like'
+          ? <ThumbUp fontSize="small" className="text-rose-400" />
+          : <ThumbUpAltOutlined fontSize="small" className="text-stone-300" />
+        }
+        <span className="text-sm font-medium">
+          {localLikes}
+        </span>
       </button>
 
       <button
         onClick={() => react('dislike')}
-        className="flex items-center gap-2 text-stone-300 hover:text-rose-400 transition-all"
+        className="flex items-center gap-2 transition-all"
       >
-        <ThumbDownAltOutlined fontSize="small" />
-        <span className="text-sm font-medium">{localDislikes}</span>
+        {reaction === 'dislike'
+          ? <ThumbDown fontSize="small" className="text-rose-400" />
+          : <ThumbDownAltOutlined fontSize="small" className="text-stone-300" />
+        }
+        <span className="text-sm font-medium">
+          {localDislikes}
+        </span>
       </button>
 
       <div className="flex items-center gap-2 text-stone-400">
         <VisibilityOutlined fontSize="small" />
-        <span className="text-sm font-medium">{views}</span>
+        <span className="text-sm font-medium">
+          {views}
+        </span>
       </div>
     </div>
   )
