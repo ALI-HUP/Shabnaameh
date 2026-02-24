@@ -21,12 +21,15 @@ function SubmitButton() {
 
 export default function WritePage() {
   const [title, setTitle] = useState("")
+  const [nickname, setNickname] = useState("")
   const [body, setBody] = useState("")
   const [state, formAction] = useFormState(createPost, { error: "" })
 
+  const minTitle = 1
+  const maxTitle = 35
+
   const minBody = 10
   const maxBody = 50000
-  const maxTitle = 35
 
   return (
     <main
@@ -42,7 +45,7 @@ export default function WritePage() {
       <div className="pointer-events-none absolute inset-0 bg-black/65" />
       <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-black/10 via-transparent to-black/30" />
 
-      <section className="relative mx-auto max-w-4xl px-5 sm:px-6 md:px-7 pt-12 sm:pt-16 md:pt-20 pb-6 sm:pb-8 md:pb-10 space-y-12 sm:space-y-16 bg-gray-900/55 backdrop-blur-md rounded-xl border border-gray-800/40">
+      <section className="relative mx-auto max-w-4xl px-5 sm:px-6 md:px-7 pt-12 sm:pt-16 md:pt-20 pb-8 space-y-12 sm:space-y-16 bg-gray-900/55 backdrop-blur-md rounded-xl border border-gray-800/40">
 
         <header className="space-y-6 text-center md:text-right">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-stone-50">
@@ -75,12 +78,15 @@ export default function WritePage() {
                 placeholder="عنوان شب‌نامه"
                 dir="rtl"
                 value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                onChange={(e) => {
+                  const value = e.target.value.slice(0, maxTitle)
+                  setTitle(value)
+                }}
                 className="w-full px-4 sm:px-5 py-3.5 pl-16 bg-gray-800/65 border border-gray-700 rounded-lg text-base sm:text-lg text-stone-50 focus:outline-none focus:border-rose-600 focus:ring-2 focus:ring-rose-600/20 transition-all"
               />
               <span
                 className={`absolute left-4 top-1/2 -translate-y-1/2 text-sm ${
-                  title.length === maxTitle
+                  title.length < minTitle || title.length > maxTitle
                     ? "text-rose-500 font-medium"
                     : "text-stone-400"
                 }`}
@@ -95,15 +101,31 @@ export default function WritePage() {
               لقب
             </label>
 
-            <input
-              id="nickname"
-              name="nickname"
-              type="text"
-              maxLength={40}
-              dir="rtl"
-              placeholder="مثلاً: یک شهروند (کاملاً اختیاری)"
-              className="w-full px-4 sm:px-5 py-3 bg-gray-800/65 border border-gray-700 rounded-lg text-base sm:text-lg text-stone-50 focus:outline-none focus:border-rose-600 focus:ring-2 focus:ring-rose-600/20 transition-all"
-            />
+            <div className="relative">
+              <input
+                id="nickname"
+                name="nickname"
+                type="text"
+                maxLength={maxTitle}
+                dir="rtl"
+                placeholder="مثلاً: یک شهروند (کاملاً اختیاری)"
+                value={nickname}
+                onChange={(e) => {
+                  const value = e.target.value.slice(0, maxTitle)
+                  setNickname(value)
+                }}
+                className="w-full px-4 sm:px-5 py-3.5 pl-16 bg-gray-800/65 border border-gray-700 rounded-lg text-base sm:text-lg text-stone-50 focus:outline-none focus:border-rose-600 focus:ring-2 focus:ring-rose-600/20 transition-all"
+              />
+              <span
+                className={`absolute left-4 top-1/2 -translate-y-1/2 text-sm ${
+                  nickname.length > 0 && (nickname.length < minTitle || nickname.length > maxTitle)
+                    ? "text-rose-500 font-medium"
+                    : "text-stone-400"
+                }`}
+              >
+                {nickname.length}/{maxTitle}
+              </span>
+            </div>
           </section>
 
           <section className="space-y-3">
@@ -120,7 +142,10 @@ export default function WritePage() {
                 rows={15}
                 dir="rtl"
                 value={body}
-                onChange={(e) => setBody(e.target.value)}
+                onChange={(e) => {
+                  const value = e.target.value.slice(0, maxBody)
+                  setBody(value)
+                }}
                 className="w-full px-4 sm:px-5 py-4 bg-gray-800/65 border border-gray-700 rounded-lg text-base sm:text-lg leading-8 sm:leading-9 text-stone-50 resize-y focus:outline-none focus:border-rose-600 focus:ring-2 focus:ring-rose-600/20 transition-all"
               />
               <span
@@ -138,8 +163,7 @@ export default function WritePage() {
           <footer className="pt-4 sm:pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
             <div className="text-sm text-stone-400 leading-relaxed max-w-md space-y-2">
               <p>
-                پس از انتشار، نوشته مستقیماً وارد آرشیو شب‌نامه
-                می‌شود و قابل ویرایش یا حذف نخواهد بود.
+                پس از انتشار، نوشته مستقیماً وارد آرشیو شب‌نامه می‌شود و قابل ویرایش یا حذف نخواهد بود.
               </p>
               <p>
                 انتشار ممکن است چند دقیقه زمان ببرد.
@@ -149,15 +173,6 @@ export default function WritePage() {
             <SubmitButton />
           </footer>
         </form>
-
-        <div className="text-white flex text-sm items-center text-center justify-center flex-col gap-3 pt-6">
-          <p>
-            برای تجربه بهتر، از لپتاپ استفاده کنید.
-          </p>
-          <p>
-            برای استفاده از سایت نیازی به VPN نیست، ولی برای امنیت بیشتر آن را روشن کنید.
-          </p>
-        </div>
 
       </section>
     </main>
