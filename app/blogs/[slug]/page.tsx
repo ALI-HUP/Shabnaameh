@@ -1,19 +1,14 @@
-import Header from '@/components/Header';
-import type { PortableTextBlock } from '@portabletext/types';
-import Link from 'next/link';
-import { sanityClient } from '@/lib/sanity.client';
-import { singlePostQuery } from '@/lib/sanity.queries';
-import { PortableText } from '@portabletext/react';
-import { notFound } from 'next/navigation';
-import type { Metadata } from 'next';
-import CopyLinkButton from '@/components/CopyLinkButton';
-import { sanityWriteClient } from '@/lib/sanity.write';
-import {
-  ThumbUpAltOutlined as ThumbUpAltOutlinedIcon,
-  ThumbDownAltOutlined as ThumbDownAltOutlinedIcon,
-  VisibilityOutlined as VisibilityOutlinedIcon,
-} from '@mui/icons-material';
-
+import Header from '@/components/Header'
+import type { PortableTextBlock } from '@portabletext/types'
+import Link from 'next/link'
+import { sanityClient } from '@/lib/sanity.client'
+import { singlePostQuery } from '@/lib/sanity.queries'
+import { PortableText } from '@portabletext/react'
+import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
+import CopyLinkButton from '@/components/CopyLinkButton'
+import ViewTracker from '@/components/Viewtracker'
+import Reactions from '@/components/Reactions'
 
 
 export const dynamic = 'force-dynamic'
@@ -56,12 +51,6 @@ export default async function PostPage({ params }: PageProps) {
 
   if (!post) return notFound()
 
-  await sanityWriteClient
-    .patch(post._id)
-    .setIfMissing({ views: 0 })
-    .inc({ views: 1 })
-    .commit()
-
   return (
     <main
       dir="rtl"
@@ -77,6 +66,8 @@ export default async function PostPage({ params }: PageProps) {
       <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-black/10 via-transparent to-black/30" />
 
       <article className="relative mx-auto max-w-3xl px-5 sm:px-6 md:px-8 py-20 sm:py-24 md:py-28 space-y-16 bg-gray-900/55 backdrop-blur-md rounded-xl border border-gray-800/40">
+
+        <ViewTracker id={post._id} />
 
         <header className="space-y-6">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-relaxed tracking-tight text-stone-50">
@@ -104,32 +95,12 @@ export default async function PostPage({ params }: PageProps) {
           <PortableText value={post.body} />
         </div>
 
-        <div className="pt-8">
-          <div className="flex items-center justify-between bg-gray-800/60 border border-rose-700/40 rounded-xl px-6 py-4 backdrop-blur-sm">
-
-            <button className="flex items-center gap-2 text-stone-300 hover:text-rose-400 transition-all">
-              <ThumbUpAltOutlinedIcon fontSize="small" />
-              <span className="text-sm font-medium">
-                {post.likes ?? 0}
-              </span>
-            </button>
-
-            <button className="flex items-center gap-2 text-stone-300 hover:text-rose-400 transition-all">
-              <ThumbDownAltOutlinedIcon fontSize="small" />
-              <span className="text-sm font-medium">
-                {post.dislikes ?? 0}
-              </span>
-            </button>
-
-            <div className="flex items-center gap-2 text-stone-400">
-              <VisibilityOutlinedIcon fontSize="small" />
-              <span className="text-sm font-medium">
-                {(post.views ?? 0) + 1}
-              </span>
-            </div>
-
-          </div>
-        </div>
+        <Reactions
+          id={post._id}
+          likes={post.likes ?? 0}
+          dislikes={post.dislikes ?? 0}
+          views={post.views ?? 0}
+        />
 
         <div className="pt-10 flex items-center justify-between">
           <CopyLinkButton />
