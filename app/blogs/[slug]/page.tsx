@@ -1,17 +1,20 @@
-import Header from '@/components/Header'
-import type { PortableTextBlock } from '@portabletext/types'
-import Link from 'next/link'
-import { sanityClient } from '@/lib/sanity.client'
-import { singlePostQuery } from '@/lib/sanity.queries'
-import { PortableText } from '@portabletext/react'
-import { notFound } from 'next/navigation'
-import type { Metadata } from 'next'
-import CopyLinkButton from '@/components/CopyLinkButton'
+import Header from '@/components/Header';
+import type { PortableTextBlock } from '@portabletext/types';
+import Link from 'next/link';
+import { sanityClient } from '@/lib/sanity.client';
+import { singlePostQuery } from '@/lib/sanity.queries';
+import { PortableText } from '@portabletext/react';
+import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
+import CopyLinkButton from '@/components/CopyLinkButton';
+import { sanityWriteClient } from '@/lib/sanity.write';
 import {
   ThumbUpAltOutlined as ThumbUpAltOutlinedIcon,
   ThumbDownAltOutlined as ThumbDownAltOutlinedIcon,
   VisibilityOutlined as VisibilityOutlinedIcon,
-} from '@mui/icons-material'
+} from '@mui/icons-material';
+
+
 
 export const dynamic = 'force-dynamic'
 
@@ -53,7 +56,7 @@ export default async function PostPage({ params }: PageProps) {
 
   if (!post) return notFound()
 
-  await sanityClient
+  await sanityWriteClient
     .patch(post._id)
     .setIfMissing({ views: 0 })
     .inc({ views: 1 })
