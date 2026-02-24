@@ -20,6 +20,7 @@ function SubmitButton() {
 }
 
 export default function WritePage() {
+  const siteLocked = process.env.NEXT_PUBLIC_SITE_LOCKED === 'true'
   const [title, setTitle] = useState("")
   const [nickname, setNickname] = useState("")
   const [body, setBody] = useState("")
@@ -54,7 +55,12 @@ export default function WritePage() {
         </header>
 
         <div className="border-t border-gray-700/50 w-full" />
-
+        {siteLocked && (
+          <div className="text-rose-500 text-sm font-medium">
+            انتشار نوشته‌ها موقتاً غیرفعال شده است.
+          </div>
+        )}
+        {!siteLocked && (
         <form action={formAction} className="space-y-8 sm:space-y-10">
 
           {state?.error && (
@@ -173,7 +179,7 @@ export default function WritePage() {
             <SubmitButton />
           </footer>
         </form>
-
+        )}
       </section>
     </main>
   );

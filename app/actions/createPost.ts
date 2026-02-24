@@ -19,6 +19,11 @@ function makeKey(prefix: string) {
 }
 
 export async function createPost(_: any, formData: FormData) {
+
+  if (process.env.SITE_LOCKED === 'true') {
+    return { error: 'انتشار نوشته‌ها موقتاً غیرفعال شده است.' }
+  }
+
   const rawTitle = formData.get('title')
   const rawBody = formData.get('body')
   const rawNickname = formData.get('nickname')
