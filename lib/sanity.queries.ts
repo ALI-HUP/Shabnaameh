@@ -12,12 +12,9 @@ export const singlePostQuery = `
   *[_type == "post" && slug.current == $slug][0] {
     _id,
     title,
-    body,
-    publishedAt,
     nickname,
-    likes,
-    dislikes,
-    views
+    body,
+    publishedAt
   }
 `
 

@@ -7,9 +7,6 @@ import { PortableText } from '@portabletext/react'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import CopyLinkButton from '@/components/CopyLinkButton'
-import ViewTracker from '@/components/Viewtracker'
-import Reactions from '@/components/Reactions'
-
 
 export const dynamic = 'force-dynamic'
 
@@ -21,11 +18,8 @@ type Post = {
   _id: string
   title: string
   body: PortableTextBlock[]
-  publishedAt?: string
   nickname?: string
-  likes?: number
-  dislikes?: number
-  views?: number
+  publishedAt?: string
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -67,8 +61,6 @@ export default async function PostPage({ params }: PageProps) {
 
       <article className="relative mx-auto max-w-3xl px-5 sm:px-6 md:px-8 py-20 sm:py-24 md:py-28 space-y-16 bg-gray-900/55 backdrop-blur-md rounded-xl border border-gray-800/40">
 
-        <ViewTracker id={post._id} />
-
         <header className="space-y-6">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-relaxed tracking-tight text-stone-50">
             {post.title}
@@ -95,13 +87,6 @@ export default async function PostPage({ params }: PageProps) {
           <PortableText value={post.body} />
         </div>
 
-        <Reactions
-          id={post._id}
-          likes={post.likes ?? 0}
-          dislikes={post.dislikes ?? 0}
-          views={post.views ?? 0}
-        />
-
         <div className="pt-10 flex items-center justify-between">
           <CopyLinkButton />
           <Link
@@ -111,7 +96,6 @@ export default async function PostPage({ params }: PageProps) {
             پایان شب‌نامه
           </Link>
         </div>
-
       </article>
     </main>
   )
